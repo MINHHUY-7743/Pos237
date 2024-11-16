@@ -242,7 +242,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jbtnExit = new javax.swing.JButton();
         jbtnRemove = new javax.swing.JButton();
         jtxtDisplayPhoneNum = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jbtnInvoice = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -746,9 +746,14 @@ public class JavaPOS extends javax.swing.JFrame {
         });
         getContentPane().add(jtxtDisplayPhoneNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 440, 170, 60));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        jButton1.setText("Invoice");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 80, 30));
+        jbtnInvoice.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jbtnInvoice.setText("Invoice");
+        jbtnInvoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnInvoiceActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jbtnInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 80, 30));
 
         pack();
         setLocationRelativeTo(null);
@@ -1383,6 +1388,10 @@ private JFrame frame;
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtDisplayPhoneNumActionPerformed
 
+    private void jbtnInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInvoiceActionPerformed
+        // go to Invoice.java
+    }//GEN-LAST:event_jbtnInvoiceActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1419,7 +1428,6 @@ private JFrame frame;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton20;
     private javax.swing.JButton jButton21;
@@ -1446,6 +1454,7 @@ private JFrame frame;
     private javax.swing.JButton jbtnC;
     private javax.swing.JButton jbtnDot;
     private javax.swing.JButton jbtnExit;
+    private javax.swing.JButton jbtnInvoice;
     private javax.swing.JButton jbtnMenu1;
     private javax.swing.JButton jbtnMenu10;
     private javax.swing.JButton jbtnMenu11;
