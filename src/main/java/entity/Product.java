@@ -9,33 +9,30 @@ package entity;
  * @author Huy
  */
 public class Product {
-    private int id;
-    private String name;
+    private int idProduct;
+    private String nameProduct;
     private double price;
-    
-    public Product() {
-    }
-    
-    public Product(int id, String name, double price) {
-        this.id = id;
-        this.name = name;
+
+    public Product(int idProduct, String nameProduct, double price) {
+        this.idProduct = idProduct;
+        this.nameProduct = nameProduct;
         this.price = price;
     }
-    
-    public int getId() {
-        return id;
+
+    public int getIdProduct() {
+        return idProduct;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdProduct(int idProduct) {
+        this.idProduct = idProduct;
     }
 
-    public String getName() {
-        return name;
+    public String getNameProduct() {
+        return nameProduct;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameProduct(String nameProduct) {
+        this.nameProduct = nameProduct;
     }
 
     public double getPrice() {
@@ -45,14 +42,13 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
-    
+
     @Override
     public String toString() {
         return "Product{" +
-               "id=" + id + 
-               ", name='" + name + '\'' + 
-               ", price=" + price + 
-               '}';
+                "idProduct='" + idProduct + '\'' +
+                ", nameProduct='" + nameProduct + '\'' +
+                ", price=" + price +
+                '}';
     }
-    
 }
