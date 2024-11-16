@@ -1,4 +1,5 @@
 
+import dao.ProductDAO;
 import entity.Product;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 
 
 /*
@@ -275,6 +277,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jbtnMenu3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\3.png")); // NOI18N
         jbtnMenu3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu3ActionPerformed(evt);
@@ -282,7 +285,7 @@ public class JavaPOS extends javax.swing.JFrame {
         });
         jPanel2.add(jbtnMenu3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 120, 130));
 
-        jbtnMenu1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\1.png")); // NOI18N
         jbtnMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu1ActionPerformed(evt);
@@ -291,6 +294,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 120, 130));
 
         jbtnMenu2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\2.GIF")); // NOI18N
         jbtnMenu2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu2ActionPerformed(evt);
@@ -299,6 +303,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 120, 130));
 
         jbtnMenu4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\4.png")); // NOI18N
         jbtnMenu4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu4ActionPerformed(evt);
@@ -307,6 +312,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 120, 130));
 
         jbtnMenu5.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\5.png")); // NOI18N
         jbtnMenu5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu5ActionPerformed(evt);
@@ -315,6 +321,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 120, 130));
 
         jbtnMenu6.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\6.png")); // NOI18N
         jbtnMenu6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu6ActionPerformed(evt);
@@ -404,6 +411,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jButton39, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 120, 110));
 
         jbtnMenu7.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\7.png")); // NOI18N
         jbtnMenu7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu7ActionPerformed(evt);
@@ -412,6 +420,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 120, 130));
 
         jbtnMenu8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu8.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\8.png")); // NOI18N
         jbtnMenu8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu8ActionPerformed(evt);
@@ -420,6 +429,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu8, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 120, 130));
 
         jbtnMenu9.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu9.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\9.png")); // NOI18N
         jbtnMenu9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu9ActionPerformed(evt);
@@ -428,6 +438,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 120, 130));
 
         jbtnMenu10.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu10.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\10.png")); // NOI18N
         jbtnMenu10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu10ActionPerformed(evt);
@@ -436,6 +447,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu10, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 120, 130));
 
         jbtnMenu11.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu11.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\11.png")); // NOI18N
         jbtnMenu11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu11ActionPerformed(evt);
@@ -444,6 +456,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu11, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 150, 120, 130));
 
         jbtnMenu12.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu12.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\12.png")); // NOI18N
         jbtnMenu12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu12ActionPerformed(evt);
@@ -452,6 +465,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu12, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 150, 120, 130));
 
         jbtnMenu13.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu13.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\13.png")); // NOI18N
         jbtnMenu13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu13ActionPerformed(evt);
@@ -460,6 +474,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 120, 130));
 
         jbtnMenu14.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu14.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\14.png")); // NOI18N
         jbtnMenu14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu14ActionPerformed(evt);
@@ -468,6 +483,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu14, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 120, 130));
 
         jbtnMenu15.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu15.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\15.png")); // NOI18N
         jbtnMenu15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu15ActionPerformed(evt);
@@ -476,6 +492,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu15, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 120, 130));
 
         jbtnMenu16.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu16.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\16.png")); // NOI18N
         jbtnMenu16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu16ActionPerformed(evt);
@@ -484,6 +501,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu16, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, 120, 130));
 
         jbtnMenu17.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu17.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\17.png")); // NOI18N
         jbtnMenu17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu17ActionPerformed(evt);
@@ -492,6 +510,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel2.add(jbtnMenu17, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, 120, 130));
 
         jbtnMenu18.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbtnMenu18.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\18.png")); // NOI18N
         jbtnMenu18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMenu18ActionPerformed(evt);
@@ -501,6 +520,7 @@ public class JavaPOS extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 780, 490));
 
+        jTable1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -639,31 +659,100 @@ public class JavaPOS extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu3ActionPerformed
-        // TODO add your handling code here:
+        int id = 3;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu3ActionPerformed
 
     private void jbtnMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu1ActionPerformed
+        int id = 1;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
         
-        double priceOfItem = 3.40;
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.addRow(new Object[]{"Rainbow Cake", "1", priceOfItem});
-        itemcost();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); // Cập nhật chi phí
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
+
     }//GEN-LAST:event_jbtnMenu1ActionPerformed
 
     private void jbtnMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu2ActionPerformed
-        // TODO add your handling code here:
+        int id = 2;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu2ActionPerformed
 
     private void jbtnMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu4ActionPerformed
-        // TODO add your handling code here:
+        int id = 4;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu4ActionPerformed
 
     private void jbtnMenu5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu5ActionPerformed
-        // TODO add your handling code here:
+        int id = 5;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu5ActionPerformed
 
     private void jbtnMenu6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu6ActionPerformed
-        // TODO add your handling code here:
+        int id = 6;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu6ActionPerformed
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
@@ -714,57 +803,199 @@ public class JavaPOS extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxtDisplayActionPerformed
 
     private void jbtnMenu7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu7ActionPerformed
-        // TODO add your handling code here:
+        int id = 7;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu7ActionPerformed
 
     private void jbtnMenu8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu8ActionPerformed
-        double priceOfItem = 3.40;
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.addRow(new Object[]{"Rainbow Cake", "1", priceOfItem});
-        itemcost();
+        //double priceOfItem = 3.40;
+        //DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        //model.addRow(new Object[]{"Rainbow Cake", "1", priceOfItem});
+        //itemcost();
+        int id = 8;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu8ActionPerformed
 
     private void jbtnMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu9ActionPerformed
-        double priceOfItem = 3.95;
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.addRow(new Object[]{"Raw Coffee", "1", priceOfItem});
-        itemcost();
+        int id = 9;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu9ActionPerformed
 
     private void jbtnMenu10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu10ActionPerformed
-        // TODO add your handling code here:
+        int id = 10;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu10ActionPerformed
 
     private void jbtnMenu11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu11ActionPerformed
-        // TODO add your handling code here:
+        int id = 11;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu11ActionPerformed
 
     private void jbtnMenu12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu12ActionPerformed
-        // TODO add your handling code here:
+        int id = 12;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu12ActionPerformed
 
     private void jbtnMenu13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu13ActionPerformed
-        // TODO add your handling code here:
+        int id = 13;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu13ActionPerformed
 
     private void jbtnMenu14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu14ActionPerformed
-        // TODO add your handling code here:
+        int id = 14;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu14ActionPerformed
 
     private void jbtnMenu15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu15ActionPerformed
-        // TODO add your handling code here:
+        int id = 15;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu15ActionPerformed
 
     private void jbtnMenu16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu16ActionPerformed
-        // TODO add your handling code here:
+        int id = 16;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu16ActionPerformed
 
     private void jbtnMenu17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu17ActionPerformed
-        // TODO add your handling code here:
+        int id = 17;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu17ActionPerformed
 
     private void jbtnMenu18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu18ActionPerformed
-        // TODO add your handling code here:
+        int id = 18;
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.getProductById(id);
+        if (product != null) { 
+            String nameOfItem = product.getNameProduct(); 
+            double priceOfItem = product.getPrice(); 
+        
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{nameOfItem, "1", priceOfItem}); 
+            itemcost(); 
+        } else {
+            System.out.println("Sản phẩm không tồn tại.");
+        }
     }//GEN-LAST:event_jbtnMenu18ActionPerformed
 
     private void jbtnNum0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum0ActionPerformed

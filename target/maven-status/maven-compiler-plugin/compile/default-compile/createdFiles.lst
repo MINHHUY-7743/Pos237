@@ -22,6 +22,7 @@ com\mycompany\javapos\JavaPOS.class
 JavaPOS$28.class
 JavaPOS$22.class
 JavaPOS$42.class
+dao\ProductDAO.class
 JavaPOS$35.class
 JavaPOS$25.class
 JavaPOS$45.class
@@ -48,4 +49,3 @@ JavaPOS$40.class
 JavaPOS$5.class
 JavaPOS$8.class
 JavaPOS$15.class
-ConnectDB.class

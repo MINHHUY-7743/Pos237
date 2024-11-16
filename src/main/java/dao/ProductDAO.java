@@ -45,4 +45,44 @@ public class ProductDAO {
         
         return productList;
     }
+    
+    public Product getProductById(int id) {
+        Product product = null;
+        
+        try {
+            String hostname = "localhost";
+            String sqlInstanceName = "LENOVOLOQ";
+            String sqlDatabase = "POS";
+            String sqlUser   = "Sa";
+            String sqlPassword = "123";
+
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+            String connectURL = "jdbc:sqlserver://" + hostname + ":1433" 
+                        + ";instance=" + sqlInstanceName 
+                        + ";databaseName=" + sqlDatabase 
+                        + ";encrypt=true;trustServerCertificate=true;";
+            
+            Connection conn = DriverManager.getConnection(connectURL, sqlUser , sqlPassword);
+            
+            String sql = "SELECT IDPRODUCT, NAMEPRODUCT, PRICE FROM PRODUCT WHERE IDPRODUCT = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id); // Thiết lập giá trị cho tham số trong câu truy vấn
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                product = new Product(
+                    rs.getInt("IDPRODUCT"), 
+                    rs.getString("NAMEPRODUCT"), 
+                    rs.getDouble("PRICE")
+                );
+            }
+            
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return product;
+    }
 }
