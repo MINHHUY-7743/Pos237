@@ -1,9 +1,18 @@
 
+import entity.Product;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,6 +24,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Huy
  */
 public class JavaPOS extends javax.swing.JFrame {
+    //Product product = new Product(1, "Cafe", 10000);
+    //List<Integer> selectedProductIds = new ArrayList<>();
 
     /**
      * Creates new form JavaPOS
@@ -73,6 +84,8 @@ public class JavaPOS extends javax.swing.JFrame {
         String ChangeGiven = String.format("$ %.2f", cChange);
         jtxtChange.setText(ChangeGiven);
     }
+//=================================Funtion Change==================================================================================    
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -630,7 +643,11 @@ public class JavaPOS extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnMenu3ActionPerformed
 
     private void jbtnMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu1ActionPerformed
-        // TODO add your handling code here:
+        
+        double priceOfItem = 3.40;
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.addRow(new Object[]{"Rainbow Cake", "1", priceOfItem});
+        itemcost();
     }//GEN-LAST:event_jbtnMenu1ActionPerformed
 
     private void jbtnMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu2ActionPerformed
