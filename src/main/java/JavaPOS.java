@@ -1,6 +1,9 @@
 
 import dao.ProductDAO;
+import entity.InvoiceDetail;
 import entity.Product;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -65,7 +68,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jtxtTotal.setText(iTotal);
         
         String BarCode = String.format("Total is %.2f", cTotal1);
-        jtxtBarCode.setText(iSubTotal);
+        //jtxtBarCode.setText(iSubTotal);
         
     }
 //=================================Funtion Change==================================================================================
@@ -86,8 +89,42 @@ public class JavaPOS extends javax.swing.JFrame {
         String ChangeGiven = String.format("$ %.2f", cChange);
         jtxtChange.setText(ChangeGiven);
     }
-//=================================Funtion Change==================================================================================    
+//=================================Funtion Change==================================================================================
+
+    private void generateInvoice() {
+        StringBuilder invoice = new StringBuilder();
+        invoice.append("HÓA ĐƠN THANH TOÁN\n");
+        invoice.append("===================================\n");
     
+        double total = 0.0;
+    
+        // Lặp qua từng hàng trong bảng để tạo hóa đơn
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
+            String itemName = (String) jTable1.getValueAt(i, 0); // Tên sản phẩm
+            String quantity = (String) jTable1.getValueAt(i, 1); // Số lượng
+            String amount = (String) jTable1.getValueAt(i, 2); // Giá tiền
+        
+            invoice.append(itemName + " x " + quantity + " = " + amount + "\n");
+            total += Double.parseDouble(amount.replace("$", "").trim()); // Cộng dồn tổng tiền
+        }
+    
+        // Tính thuế và tổng tiền
+        double tax = total * 0.039; // Giả sử thuế là 3.9%
+        double grandTotal = total + tax;
+    
+        invoice.append("===================================\n");
+        invoice.append("Tổng cộng: $" + String.format("%.2f", total) + "\n");
+        invoice.append("Thuế: $" + String.format("%.2f", tax) + "\n");
+        invoice.append("Tổng tiền thanh toán: $" + String.format("%.2f", grandTotal) + "\n");
+        invoice.append("===================================\n");
+        invoice.append("Cảm ơn bạn đã mua hàng!\n");
+    
+        // Hiển thị hóa đơn
+        JOptionPane.showMessageDialog(this, invoice.toString(), "Hóa Đơn", JOptionPane.INFORMATION_MESSAGE);
+    }    
+    //=================================Funtion Change==================================================================================
+    
+    //=================================Funtion Change==================================================================================
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -155,7 +192,8 @@ public class JavaPOS extends javax.swing.JFrame {
         jbtnPrint = new javax.swing.JButton();
         jbtnExit = new javax.swing.JButton();
         jbtnRemove = new javax.swing.JButton();
-        jtxtBarCode = new javax.swing.JTextField();
+        jtxtDisplayPhoneNum = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -651,8 +689,17 @@ public class JavaPOS extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 1380, 200));
 
-        jtxtBarCode.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        getContentPane().add(jtxtBarCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 440, 300, 60));
+        jtxtDisplayPhoneNum.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jtxtDisplayPhoneNum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtDisplayPhoneNumActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jtxtDisplayPhoneNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 440, 170, 60));
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jButton1.setText("Invoice");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 80, 30));
 
         pack();
         setLocationRelativeTo(null);
@@ -676,6 +723,7 @@ public class JavaPOS extends javax.swing.JFrame {
 
     private void jbtnMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu1ActionPerformed
         int id = 1;
+        //add id in to list bills
         ProductDAO productDAO = new ProductDAO();
         Product product = productDAO.getProductById(id);
         if (product != null) { 
@@ -1000,15 +1048,31 @@ public class JavaPOS extends javax.swing.JFrame {
 
     private void jbtnNum0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum0ActionPerformed
         //0
-        String Enternumber = jtxtDisplay.getText();
-        
-        if (Enternumber == "")
-        {
-            jtxtDisplay.setText(jbtnNum0.getText());
+        String Enternumber;
+        //String Enternumber = jtxtDisplay.getText();
+        if (jtxtDisplay.isFocusOwner()) {
+            Enternumber = jtxtDisplay.getText();
+        } else if (jtxtDisplayPhoneNum.isFocusOwner()) {
+            Enternumber = jtxtDisplayPhoneNum.getText();
+        } else {
+            return;
         }
-        else{
-            Enternumber = jtxtDisplay.getText() + jbtnNum0.getText();
-            jtxtDisplay.setText(Enternumber);
+        
+        // Nếu trường nhập liệu trống, thiết lập giá trị là "0"
+        if (Enternumber.equals("")) {
+            if (jtxtDisplay.isFocusOwner()) {
+                jtxtDisplay.setText(jbtnNum0.getText());
+            } else if (jtxtDisplayPhoneNum.isFocusOwner()) {
+                jtxtDisplayPhoneNum.setText(jbtnNum0.getText());
+            }
+        } else {
+            // Nối "0" vào giá trị hiện tại
+            Enternumber += jbtnNum0.getText();
+            if (jtxtDisplay.isFocusOwner()) {
+                jtxtDisplay.setText(Enternumber);
+            } else if (jtxtDisplayPhoneNum.isFocusOwner()) {
+            jtxtDisplayPhoneNum.setText(Enternumber);
+            }
         }
     }//GEN-LAST:event_jbtnNum0ActionPerformed
 
@@ -1148,15 +1212,47 @@ public class JavaPOS extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnDotActionPerformed
 
     private void jbtnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPayActionPerformed
-        if (jcboPayment.getSelectedItem().equals("Cash"))
-        {
-            Change();
+        double cash = Double.parseDouble(jtxtDisplay.getText());
+        if (jcboPayment.getSelectedItem().equals("Cash")) {
+        Change(); // Tính tiền thối
+
+        // Tính toán tổng tiền và thuế
+        double sum = 0.0;
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
+            sum += Double.parseDouble(jTable1.getValueAt(i, 2).toString().replace("$", "").trim());
         }
-        else
-        {
-                jtxtChange.setText("");
-                jtxtDisplay.setText("");
+
+        double tax = sum * 0.039; // Giả sử thuế là 3.9%
+        double grandTotal = sum + tax;
+        
+        if (cash < grandTotal){
+            JOptionPane.showMessageDialog(this, "Số tiền mặt không đủ! Vui lòng nhập lại.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            jtxtDisplay.setText("");
+            return;
         }
+        
+        // Tạo danh sách chi tiết hóa đơn
+        List<InvoiceDetail> invoiceDetails = new ArrayList<>();
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
+            String productName = (String) jTable1.getValueAt(i, 0);
+            int quantity = Integer.parseInt((String) jTable1.getValueAt(i, 1));
+            double price = Double.parseDouble(jTable1.getValueAt(i, 2).toString().replace("$", "").trim());
+            invoiceDetails.add(new InvoiceDetail(productName, quantity, price));
+        }
+
+        // Lưu hóa đơn vào cơ sở dữ liệu
+        ProductDAO productDAO = new ProductDAO();
+        productDAO.saveInvoice(sum, tax, grandTotal, invoiceDetails);
+
+        // Hiển thị thông báo thành công
+        JOptionPane.showMessageDialog(this, "Hóa đơn đã được lưu thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+        // Reset bảng và các trường nhập liệu
+        jbtnResetActionPerformed(evt);
+    } else {
+        jtxtChange.setText("");
+        jtxtDisplay.setText("");
+    }
     }//GEN-LAST:event_jbtnPayActionPerformed
 
     private void jbtnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnResetActionPerformed
@@ -1167,7 +1263,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jtxtTotal.setText("");
         jtxtSubTotal.setText("");
         jtxtDisplay.setText("");
-        jtxtBarCode.setText("");
+        jtxtDisplayPhoneNum.setText("");
     }//GEN-LAST:event_jbtnResetActionPerformed
 
     private void jbtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPrintActionPerformed
@@ -1220,6 +1316,10 @@ private JFrame frame;
         // TODO add your handling code here:
     }//GEN-LAST:event_jcboPaymentActionPerformed
 
+    private void jtxtDisplayPhoneNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtDisplayPhoneNumActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtDisplayPhoneNumActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1256,6 +1356,7 @@ private JFrame frame;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton20;
     private javax.swing.JButton jButton21;
@@ -1315,9 +1416,9 @@ private JFrame frame;
     private javax.swing.JButton jbtnRemove;
     private javax.swing.JButton jbtnReset;
     private javax.swing.JComboBox<String> jcboPayment;
-    private javax.swing.JTextField jtxtBarCode;
     private javax.swing.JTextField jtxtChange;
     private javax.swing.JTextField jtxtDisplay;
+    private javax.swing.JTextField jtxtDisplayPhoneNum;
     private javax.swing.JTextField jtxtSubTotal;
     private javax.swing.JTextField jtxtTax;
     private javax.swing.JTextField jtxtTotal;
