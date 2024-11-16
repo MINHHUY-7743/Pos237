@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -37,6 +38,24 @@ public class JavaPOS extends javax.swing.JFrame {
      */
     public JavaPOS() {
         initComponents();
+           // Thêm FocusListener cho jtxtDisplay
+        jtxtDisplay.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                // Khi jtxtDisplay nhận tiêu điểm, bạn có thể thực hiện một số hành động nếu cần
+                System.out.println("jtxtDisplay has focus");
+            }
+        });
+
+        // Thêm FocusListener cho jtxtDisplayPhoneNum
+        jtxtDisplayPhoneNum.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                // Khi jtxtDisplayPhoneNum nhận tiêu điểm, bạn có thể thực hiện một số hành động nếu cần
+                System.out.println("jtxtDisplayPhoneNum has focus");
+            }
+        });
+
+        // Đặt tiêu điểm vào jtxtDisplay khi khởi động (tùy chọn)
+        jtxtDisplay.requestFocusInWindow();
     }
 
     /**
@@ -122,9 +141,39 @@ public class JavaPOS extends javax.swing.JFrame {
         // Hiển thị hóa đơn
         JOptionPane.showMessageDialog(this, invoice.toString(), "Hóa Đơn", JOptionPane.INFORMATION_MESSAGE);
     }    
-    //=================================Funtion Change==================================================================================
+    //=================================Funtion forcus ==================================================================================
+    private void addNumberToFocusedField(String number) {
+        JTextField focusedField = null;
+    
+        // Kiểm tra trường nào đang có tiêu điểm
+        if (jtxtDisplay.isFocusOwner()) {
+            focusedField = jtxtDisplay;
+        } else if (jtxtDisplayPhoneNum.isFocusOwner()) {
+            focusedField = jtxtDisplayPhoneNum;
+        }
+
+        if (focusedField != null) {
+            String currentText = focusedField.getText();
+            // Kiểm tra nếu trống, đặt giá trị là "0"
+            if (currentText.isEmpty()) {
+                focusedField.setText(number);
+            } else {
+                // Nối chuỗi số mới
+                focusedField.setText(currentText + number);
+            }
+        }    
+    }
     
     //=================================Funtion Change==================================================================================
+    private void handleNumberInput(String number) {
+        if (jtxtDisplay.isFocusOwner()) {
+            jtxtDisplay.setText(jtxtDisplay.getText() + number);
+        } else if (jtxtDisplayPhoneNum.isFocusOwner()) {
+            jtxtDisplayPhoneNum.setText(jtxtDisplayPhoneNum.getText() + number);
+        }
+    }    
+    //=================================Funtion Change==================================================================================
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -1048,32 +1097,46 @@ public class JavaPOS extends javax.swing.JFrame {
 
     private void jbtnNum0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum0ActionPerformed
         //0
-        String Enternumber;
-        //String Enternumber = jtxtDisplay.getText();
-        if (jtxtDisplay.isFocusOwner()) {
-            Enternumber = jtxtDisplay.getText();
-        } else if (jtxtDisplayPhoneNum.isFocusOwner()) {
-            Enternumber = jtxtDisplayPhoneNum.getText();
-        } else {
-            return;
-        }
+        String Enternumber = jtxtDisplay.getText();
         
-        // Nếu trường nhập liệu trống, thiết lập giá trị là "0"
-        if (Enternumber.equals("")) {
-            if (jtxtDisplay.isFocusOwner()) {
-                jtxtDisplay.setText(jbtnNum0.getText());
-            } else if (jtxtDisplayPhoneNum.isFocusOwner()) {
-                jtxtDisplayPhoneNum.setText(jbtnNum0.getText());
-            }
-        } else {
-            // Nối "0" vào giá trị hiện tại
-            Enternumber += jbtnNum0.getText();
-            if (jtxtDisplay.isFocusOwner()) {
-                jtxtDisplay.setText(Enternumber);
-            } else if (jtxtDisplayPhoneNum.isFocusOwner()) {
-            jtxtDisplayPhoneNum.setText(Enternumber);
-            }
+        if (Enternumber == "")
+        {
+            jtxtDisplay.setText(jbtnNum0.getText());
         }
+        else{
+            Enternumber = jtxtDisplay.getText() + jbtnNum0.getText();
+            jtxtDisplay.setText(Enternumber);
+        }
+        //addNumberToFocusedField("0");
+        //handleNumberInput("0");
+//        System.out.println("Nút 0 đã được nhấn.");
+//        if (jtxtDisplay.isFocusOwner()) {
+//            System.out.println("jtxtDisplay đang được chọn.");
+//            String Enternumber = jtxtDisplay.getText();
+//            System.out.println("Giá trị hiện tại của jtxtDisplay: " + Enternumber);
+//            if (Enternumber == "")
+//            {
+//                jtxtDisplay.setText(jbtnNum0.getText());
+//            }
+//            else{
+//                Enternumber = jtxtDisplay.getText() + jbtnNum1.getText();
+//                jtxtDisplay.setText(Enternumber);
+//            }
+//            
+//        } else if (jtxtDisplayPhoneNum.isFocusOwner()) {
+//            String Enternumber = jtxtDisplayPhoneNum.getText();
+//            if (Enternumber == "")
+//            {
+//                jtxtDisplayPhoneNum.setText(jbtnNum0.getText());
+//            }
+//            else
+//            {
+//                Enternumber = jtxtDisplayPhoneNum.getText() + jbtnNum1.getText();
+//                jtxtDisplayPhoneNum.setText(Enternumber);
+//            }
+//        }
+//        
+        
     }//GEN-LAST:event_jbtnNum0ActionPerformed
 
     private void jbtnNum7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum7ActionPerformed
