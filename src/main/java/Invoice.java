@@ -4,9 +4,11 @@ import dao.InvoiceDAO;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -49,8 +51,10 @@ public class Invoice extends javax.swing.JFrame {
         // Xóa dữ liệu cũ trong bảng
         DefaultTableModel model = (DefaultTableModel) jTableInvoice.getModel();
         model.setRowCount(0);
-        // Thêm dữ liệu mới vào bảng
+        // Khởi tạo các biến để tính tổng
         double totalRevenue = 0;
+        double totalTax = 0;
+        // Thêm dữ liệu mới vào bảng
         for (EntityInvoice invoice : invoices) {
             model.addRow(new Object[]{
                 invoice.getId(),
@@ -58,11 +62,14 @@ public class Invoice extends javax.swing.JFrame {
                 invoice.getGrandTotal()
             });
             totalRevenue += invoice.getGrandTotal();
+            //totalTax += invoice.getTax();
         }
         
         // Cập nhật các nhãn thống kê
-            jLabelTotalInvoice.setText("Tổng số hóa đơn: " + invoices.size());
-            jLabelTotal.setText(String.format("Tổng doanh thu: %.2f VND", totalRevenue));
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+        //jLabelTotal.setText(String.format("Tổng tiền: %s VND", numberFormat.format(total)));
+        jLabelTotalInvoice.setText("Tổng số hóa đơn: " + invoices.size());
+        jLabelTotalRevenue.setText(String.format("Tổng doanh thu: %s VND", numberFormat.format(totalRevenue)));
     }
     
     // Phương thức load chi tiết hóa đơn
@@ -76,15 +83,35 @@ public class Invoice extends javax.swing.JFrame {
             DefaultTableModel detailModel = (DefaultTableModel) jTableInvoiceDetail.getModel();
             detailModel.setRowCount(0);
 
-            // Thêm dữ liệu mới vào bảng chi tiết
+            // Biến để tính tổng tiền và thuế
+            double total = 0.0;
+            double taxRate = 3.9; // Tỷ lệ thuế
+            double tax = 0.0;
+
+            // Thêm dữ liệu mới vào bảng chi tiết và tính tổng tiền
             for (EntityInvoiceDetail detail : invoiceDetails) {
                 detailModel.addRow(new Object[]{
                     detail.getProductName(),
                     detail.getQuantity(),
                     detail.getPrice()
                 });
+
+                // Tính tổng tiền
+                total += detail.getQuantity() * detail.getPrice();
             }
 
+            // Tính thuế
+            tax = (total * taxRate) / 100;
+            
+            // Tạo đối tượng NumberFormat để định dạng số
+            NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+            
+            // Cập nhật các nhãn (nếu có) để hiển thị tổng tiền và thuế
+            jLabelTotal.setText(String.format("Total: %s VND", numberFormat.format(total)));
+            //jLabelTax.setText(String.format("Thuế: %.2f VND", tax));
+            jLabelTax.setText(String.format("Tax: %s VND", numberFormat.format(tax)));
+            jLabelTotalGrand.setText(String.format("Grand Total: %s VND", numberFormat.format(tax + total)));
+            
         } catch (SQLException ex) {
             // Xử lý ngoại lệ
             JOptionPane.showMessageDialog(this, 
@@ -131,14 +158,19 @@ public class Invoice extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jbtnPos = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jLabelTotal = new javax.swing.JLabel();
+        jLabelTotalGrand = new javax.swing.JLabel();
         jLabelTotalInvoice = new javax.swing.JLabel();
-        jLabelTotalRevenue1 = new javax.swing.JLabel();
+        jLabelTotalRevenue = new javax.swing.JLabel();
         jLabelTax = new javax.swing.JLabel();
+        jLabelTotal = new javax.swing.JLabel();
+        jBttnSetting = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTableInvoiceDetail.setBackground(new java.awt.Color(204, 204, 204));
         jTableInvoiceDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -163,6 +195,7 @@ public class Invoice extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 840, 500));
 
+        jTableInvoice.setBackground(new java.awt.Color(204, 204, 204));
         jTableInvoice.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTableInvoice.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -188,6 +221,7 @@ public class Invoice extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(902, 170, 470, 550));
 
+        jDateChooserDateOfInvoice.setBackground(new java.awt.Color(204, 204, 204));
         jDateChooserDateOfInvoice.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDateChooserDateOfInvoice.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -227,34 +261,48 @@ public class Invoice extends javax.swing.JFrame {
         });
         getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 100, 80, 40));
 
-        jLabelTotal.setBackground(new java.awt.Color(255, 255, 204));
-        jLabelTotal.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabelTotal.setText("Total: ");
-        getContentPane().add(jLabelTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 690, 280, 40));
+        jLabelTotalGrand.setBackground(new java.awt.Color(255, 255, 204));
+        jLabelTotalGrand.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabelTotalGrand.setText("Grand Total: ");
+        getContentPane().add(jLabelTotalGrand, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 690, 280, 40));
 
         jLabelTotalInvoice.setBackground(new java.awt.Color(255, 255, 204));
         jLabelTotalInvoice.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabelTotalInvoice.setText("Total Invoice: ");
         getContentPane().add(jLabelTotalInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 280, 40));
 
-        jLabelTotalRevenue1.setBackground(new java.awt.Color(255, 255, 204));
-        jLabelTotalRevenue1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabelTotalRevenue1.setText("TotalRevenue:");
-        jLabelTotalRevenue1.addAncestorListener(new javax.swing.event.AncestorListener() {
+        jLabelTotalRevenue.setBackground(new java.awt.Color(255, 255, 204));
+        jLabelTotalRevenue.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabelTotalRevenue.setText("TotalRevenue:");
+        jLabelTotalRevenue.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                jLabelTotalRevenue1AncestorAdded(evt);
+                jLabelTotalRevenueAncestorAdded(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        getContentPane().add(jLabelTotalRevenue1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 280, 40));
+        getContentPane().add(jLabelTotalRevenue, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 280, 40));
 
         jLabelTax.setBackground(new java.awt.Color(255, 255, 204));
         jLabelTax.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabelTax.setText("Tax:");
-        getContentPane().add(jLabelTax, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 690, 280, 40));
+        getContentPane().add(jLabelTax, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 690, 240, 40));
+
+        jLabelTotal.setBackground(new java.awt.Color(255, 255, 204));
+        jLabelTotal.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabelTotal.setText("Total: ");
+        getContentPane().add(jLabelTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 690, 280, 40));
+
+        jBttnSetting.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jBttnSetting.setText("Setting");
+        getContentPane().add(jBttnSetting, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 10, -1, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 270, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(0, 153, 51));
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1390, 770));
 
         pack();
         setLocationRelativeTo(null);
@@ -308,9 +356,9 @@ public class Invoice extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void jLabelTotalRevenue1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabelTotalRevenue1AncestorAdded
+    private void jLabelTotalRevenueAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabelTotalRevenueAncestorAdded
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabelTotalRevenue1AncestorAdded
+    }//GEN-LAST:event_jLabelTotalRevenueAncestorAdded
 
     /**
      * @param args the command line arguments
@@ -350,14 +398,18 @@ public class Invoice extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBttnSetting;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooserDateOfInvoice;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelTax;
     private javax.swing.JLabel jLabelTotal;
+    private javax.swing.JLabel jLabelTotalGrand;
     private javax.swing.JLabel jLabelTotalInvoice;
-    private javax.swing.JLabel jLabelTotalRevenue1;
+    private javax.swing.JLabel jLabelTotalRevenue;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableInvoice;

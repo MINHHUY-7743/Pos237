@@ -56,8 +56,8 @@ public class InvoiceDAO {
                     EntityInvoice invoice = new EntityInvoice(
                         rs.getInt("id"),
                         rs.getDate("date"),
-                        rs.getDouble("total"),    
-                        rs.getDouble("tax"),                      
+//                        rs.getDouble("total"),    
+//                        rs.getDouble("tax"),                      
                         rs.getDouble("grand_total")
                             
                             

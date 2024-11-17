@@ -10,8 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -39,7 +42,7 @@ public class JavaPOS extends javax.swing.JFrame {
     public JavaPOS() {
         initComponents();
            // Thêm FocusListener cho jtxtDisplay
-        jtxtDisplay.addFocusListener(new FocusAdapter() {
+        jtxtDisplayDouble.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent evt) {
                 // Khi jtxtDisplay nhận tiêu điểm, bạn có thể thực hiện một số hành động nếu cần
                 System.out.println("jtxtDisplay has focus");
@@ -47,7 +50,7 @@ public class JavaPOS extends javax.swing.JFrame {
         });
 
         // Thêm FocusListener cho jtxtDisplayPhoneNum
-        jtxtDisplayPhoneNum.addFocusListener(new FocusAdapter() {
+        jtxtDisplayDouble.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent evt) {
                 // Khi jtxtDisplayPhoneNum nhận tiêu điểm, bạn có thể thực hiện một số hành động nếu cần
                 System.out.println("jtxtDisplayPhoneNum has focus");
@@ -55,7 +58,7 @@ public class JavaPOS extends javax.swing.JFrame {
         });
 
         // Đặt tiêu điểm vào jtxtDisplay khi khởi động (tùy chọn)
-        jtxtDisplay.requestFocusInWindow();
+        jtxtDisplayDouble.requestFocusInWindow();
     }
 
     /**
@@ -74,17 +77,18 @@ public class JavaPOS extends javax.swing.JFrame {
         {
             sum = sum + Double.parseDouble(jTable1.getValueAt(i, 2).toString());
         }
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
         jtxtSubTotal.setText(Double.toString(sum));
         double cTotal1 = Double.parseDouble(jtxtSubTotal.getText());
         double cTax = (cTotal1 * 3.9)/100;
-        String iTaxTotal = String.format("$ %.2f", cTax);
-        jtxtTax.setText(iTaxTotal);
+        //String iTaxTotal = String.format("$ %.2f", cTax);
+        jtxtTax.setText(String.format("%s VND",numberFormat.format(cTax)));
         
-        String iSubTotal = String.format("$ %.2f", cTotal1);
-        jtxtSubTotal.setText(iSubTotal);
+        //String iSubTotal = String.format("$ %.2f", cTotal1);
+        jtxtSubTotal.setText(String.format("%s VND",numberFormat.format(cTotal1)));
         
-        String iTotal = String.format("$ %.2f", cTotal1 + cTax);
-        jtxtTotal.setText(iTotal);
+        //String iTotal = String.format("$ %.2f", cTotal1 + cTax);
+        jtxtTotal.setText(String.format("%s VND",numberFormat.format(cTotal1 + cTax)));
         
         String BarCode = String.format("Total is %.2f", cTotal1);
         //jtxtBarCode.setText(iSubTotal);
@@ -95,7 +99,7 @@ public class JavaPOS extends javax.swing.JFrame {
     {
         double sum = 0;
         double tax = 3.9;
-        double cash = Double.parseDouble(jtxtDisplay.getText());
+        double cash = Double.parseDouble(jtxtDisplayDouble.getText());
         
         for (int i = 0; i < jTable1.getRowCount(); i++)
         {
@@ -104,9 +108,9 @@ public class JavaPOS extends javax.swing.JFrame {
         
         double cTax = (sum * 3.9)/100;
         double cChange = (cash - (sum + cTax));
-        
-        String ChangeGiven = String.format("$ %.2f", cChange);
-        jtxtChange.setText(ChangeGiven);
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+        //String ChangeGiven = String.format("$ %.2f", cChange);
+        jtxtChange.setText(String.format("%s VND",numberFormat.format(cChange)));
     }
 //=================================Funtion Change==================================================================================
 
@@ -142,37 +146,116 @@ public class JavaPOS extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, invoice.toString(), "Hóa Đơn", JOptionPane.INFORMATION_MESSAGE);
     }    
     //=================================Funtion forcus ==================================================================================
-    private void addNumberToFocusedField(String number) {
-        JTextField focusedField = null;
+//    private void addNumberToFocusedField(String number) {
+//        JTextField focusedField = null;
+//    
+//        // Kiểm tra trường nào đang có tiêu điểm
+//        if (jtxtDisplay.isFocusOwner()) {
+//            focusedField = jtxtDisplay;
+//        } else if (jtxtDisplayDouble.isFocusOwner()) {
+//            focusedField = jtxtDisplayDouble;
+//        }
+//
+//        if (focusedField != null) {
+//            String currentText = focusedField.getText();
+//            // Kiểm tra nếu trống, đặt giá trị là "0"
+//            if (currentText.isEmpty()) {
+//                focusedField.setText(number);
+//            } else {
+//                // Nối chuỗi số mới
+//                focusedField.setText(currentText + number);
+//            }
+//        }    
+//    }
     
-        // Kiểm tra trường nào đang có tiêu điểm
-        if (jtxtDisplay.isFocusOwner()) {
-            focusedField = jtxtDisplay;
-        } else if (jtxtDisplayPhoneNum.isFocusOwner()) {
-            focusedField = jtxtDisplayPhoneNum;
-        }
+    //=================================Funtion Change==================================================================================
+//    private void handleNumberInput(String number) {
+//        if (jtxtDisplay.isFocusOwner()) {
+//            jtxtDisplay.setText(jtxtDisplay.getText() + number);
+//        } else if (jtxtDisplayPhoneNum.isFocusOwner()) {
+//            jtxtDisplayPhoneNum.setText(jtxtDisplayPhoneNum.getText() + number);
+//        }
+//    }    
+    //=================================Funtion Change==================================================================================
+//    private void updateDisplayWithNumber(String number) {
+//        String currentNumber = jtxtDisplay.getText();
+//        NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+//
+//        // Loại bỏ dấu phẩy khỏi chuỗi hiện tại
+//        currentNumber = currentNumber.replaceAll(",", "");
+//
+//        if (currentNumber.isEmpty()) {
+//            // Nếu trường trống, đặt giá trị là số vừa nhấn
+//            jtxtDisplay.setText(number);
+//        } else {
+//            // Nối số mới vào chuỗi hiện tại
+//            currentNumber += number;
+//
+//            // Chuyển đổi chuỗi thành số
+//            try {
+//                double value = Double.parseDouble(currentNumber);
+//                // Định dạng số với dấu phẩy
+//                String formattedValue = numberFormat.format(value);
+//                jtxtDisplay.setText(formattedValue);
+//            } catch (NumberFormatException e) {
+//                // Xử lý nếu không thể chuyển đổi thành số
+//                JOptionPane.showMessageDialog(this, "Giá trị không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//            }
+//        }
+//    }
+     
+    
+    private void updateDisplayWithNumber(String number) {
+        String currentNumber = jtxtDisplay.getText();
 
-        if (focusedField != null) {
-            String currentText = focusedField.getText();
-            // Kiểm tra nếu trống, đặt giá trị là "0"
-            if (currentText.isEmpty()) {
-                focusedField.setText(number);
-            } else {
-                // Nối chuỗi số mới
-                focusedField.setText(currentText + number);
-            }
-        }    
-    }
-    
-    //=================================Funtion Change==================================================================================
-    private void handleNumberInput(String number) {
-        if (jtxtDisplay.isFocusOwner()) {
-            jtxtDisplay.setText(jtxtDisplay.getText() + number);
-        } else if (jtxtDisplayPhoneNum.isFocusOwner()) {
-            jtxtDisplayPhoneNum.setText(jtxtDisplayPhoneNum.getText() + number);
+        // Xóa dấu phẩy khỏi chuỗi hiện tại
+        currentNumber = currentNumber.replaceAll(",", "");
+
+        // Thêm số mới vào chuỗi hiện tại
+        currentNumber += number;
+
+        // Định dạng chuỗi hiện tại để thêm dấu phẩy
+        try {
+            String formattedValue = formatNumberWithCommas(currentNumber);
+            jtxtDisplay.setText(formattedValue);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Giá trị không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-    }    
-    //=================================Funtion Change==================================================================================
+    }
+
+    // Hàm định dạng chuỗi với dấu phẩy
+    private String formatNumberWithCommas(String number) {
+        // Tách phần nguyên và phần thập phân
+        String[] parts = number.split("\\.");
+
+        // Định dạng phần nguyên với dấu phẩy
+        String integerPart = parts[0].replaceAll("(\\d)(?=(\\d{3})+$)", "$1,");
+
+        if (parts.length > 1) {
+            // Nếu có phần thập phân, nối lại với dấu chấm
+            return integerPart + "." + parts[1];
+        } else {
+            // Nếu không có phần thập phân, trả về phần nguyên
+            return integerPart;
+        }
+    }
+
+   //=============================
+    private void handleNumberInput(String number) {
+        String currentText = jtxtDisplayDouble.getText();
+
+        // Kiểm tra nếu ô nhập trống
+        if (currentText.isEmpty()) {
+            jtxtDisplayDouble.setText(number);
+        } else {
+            // Nối số mới vào chuỗi hiện tại
+            currentText += number;
+            jtxtDisplayDouble.setText(currentText);
+        }
+    }
+
+    
+    //=========================================================
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -232,21 +315,23 @@ public class JavaPOS extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jtxtDisplay = new javax.swing.JTextField();
         jtxtChange = new javax.swing.JTextField();
         jcboPayment = new javax.swing.JComboBox<>();
+        jtxtDisplay = new javax.swing.JTextField();
         jPanel13 = new javax.swing.JPanel();
         jbtnReset = new javax.swing.JButton();
         jbtnPay = new javax.swing.JButton();
         jbtnPrint = new javax.swing.JButton();
         jbtnExit = new javax.swing.JButton();
         jbtnRemove = new javax.swing.JButton();
-        jtxtDisplayPhoneNum = new javax.swing.JTextField();
         jbtnInvoice = new javax.swing.JButton();
+        jtxtDisplayDouble = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(0, 153, 51));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -360,6 +445,7 @@ public class JavaPOS extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 280, 490));
 
+        jPanel2.setBackground(new java.awt.Color(0, 153, 51));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -620,6 +706,7 @@ public class JavaPOS extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 300, -1));
 
+        jPanel3.setBackground(new java.awt.Color(0, 153, 51));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -639,13 +726,18 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel11.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jtxtTotal.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jPanel11.add(jtxtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 180, -1));
+        jPanel11.add(jtxtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 200, -1));
 
         jtxtSubTotal.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jPanel11.add(jtxtSubTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 180, -1));
+        jtxtSubTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtSubTotalActionPerformed(evt);
+            }
+        });
+        jPanel11.add(jtxtSubTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 200, -1));
 
         jtxtTax.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jPanel11.add(jtxtTax, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 180, -1));
+        jPanel11.add(jtxtTax, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 200, -1));
 
         jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 350, 160));
 
@@ -664,14 +756,6 @@ public class JavaPOS extends javax.swing.JFrame {
         jLabel6.setText("Payment");
         jPanel12.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        jtxtDisplay.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jtxtDisplay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtDisplayActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jtxtDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 180, -1));
-
         jtxtChange.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jPanel12.add(jtxtChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 180, -1));
 
@@ -683,6 +767,14 @@ public class JavaPOS extends javax.swing.JFrame {
             }
         });
         jPanel12.add(jcboPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 180, 30));
+
+        jtxtDisplay.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jtxtDisplay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtDisplayActionPerformed(evt);
+            }
+        });
+        jPanel12.add(jtxtDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 180, -1));
 
         jPanel3.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 350, 160));
 
@@ -738,14 +830,6 @@ public class JavaPOS extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 1380, 200));
 
-        jtxtDisplayPhoneNum.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jtxtDisplayPhoneNum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtDisplayPhoneNumActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jtxtDisplayPhoneNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 440, 170, 60));
-
         jbtnInvoice.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jbtnInvoice.setText("Invoice");
         jbtnInvoice.addActionListener(new java.awt.event.ActionListener() {
@@ -754,6 +838,18 @@ public class JavaPOS extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jbtnInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 80, 30));
+
+        jtxtDisplayDouble.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jtxtDisplayDouble.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtDisplayDoubleActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jtxtDisplayDouble, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 448, 150, 40));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Huy\\school\\HDT-java\\pos\\javaPOS\\src\\main\\java\\img\\lockscreen.jpg")); // NOI18N
+        jLabel7.setText("jLabel7");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 16, 1390, 780));
 
         pack();
         setLocationRelativeTo(null);
@@ -895,14 +991,15 @@ public class JavaPOS extends javax.swing.JFrame {
 
     private void jbtnCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCActionPerformed
         // clear
-        jtxtDisplay.setText("");
+        jtxtDisplayDouble.setText("");
         jtxtChange.setText("");
+        jtxtDisplay.setText("");
         
     }//GEN-LAST:event_jbtnCActionPerformed
 
-    private void jtxtDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtDisplayActionPerformed
+    private void jtxtDisplayDoubleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtDisplayDoubleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtxtDisplayActionPerformed
+    }//GEN-LAST:event_jtxtDisplayDoubleActionPerformed
 
     private void jbtnMenu7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu7ActionPerformed
         int id = 7;
@@ -1102,16 +1199,46 @@ public class JavaPOS extends javax.swing.JFrame {
 
     private void jbtnNum0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum0ActionPerformed
         //0
-        String Enternumber = jtxtDisplay.getText();
+        handleNumberInput("0");
+        updateDisplayWithNumber("0");
+//        String Enternumber = jtxtDisplay.getText();
+//        NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+//
+//        if (Enternumber.isEmpty()) {
+//            // Nếu trường trống, đặt giá trị là "0"
+//            jtxtDisplay.setText(jbtnNum0.getText());
+//        } else {
+//            // Nối số mới vào chuỗi hiện tại
+//            Enternumber += jbtnNum0.getText();
+//
+//            // Chuyển đổi chuỗi thành số
+//            try {
+//                double value = Double.parseDouble(Enternumber);
+//                // Định dạng số với dấu phẩy
+//                String formattedValue = numberFormat.format(value);
+//                jtxtDisplay.setText(formattedValue);
+//            } catch (NumberFormatException e) {
+//                // Xử lý nếu không thể chuyển đổi thành số
+//                JOptionPane.showMessageDialog(this, "Giá trị không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//            }
+//        }
         
-        if (Enternumber == "")
-        {
-            jtxtDisplay.setText(jbtnNum0.getText());
-        }
-        else{
-            Enternumber = jtxtDisplay.getText() + jbtnNum0.getText();
-            jtxtDisplay.setText(Enternumber);
-        }
+        
+        //========================
+//        String Enternumber = jtxtDisplay.getText();
+//        NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+//        
+//        if (Enternumber == "")
+//        {
+//            jtxtDisplay.setText(jbtnNum0.getText());
+//            //jtxtDisplay.setText(String.format("%s VND", numberFormat.format(jbtnNum0.getText())));
+//            //String.format("Tổng doanh thu: %s VND", numberFormat.format(totalRevenue))
+//        }
+//        else{
+//            Enternumber = jtxtDisplay.getText() + jbtnNum0.getText();
+//            jtxtDisplay.setText(Enternumber);
+//        }
+        //=======================
         //addNumberToFocusedField("0");
         //handleNumberInput("0");
 //        System.out.println("Nút 0 đã được nhấn.");
@@ -1140,147 +1267,187 @@ public class JavaPOS extends javax.swing.JFrame {
 //                jtxtDisplayPhoneNum.setText(Enternumber);
 //            }
 //        }
-//        
-        
+//            
     }//GEN-LAST:event_jbtnNum0ActionPerformed
 
     private void jbtnNum7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum7ActionPerformed
-        // 7
-        String Enternumber = jtxtDisplay.getText();
+        handleNumberInput("7");
+        updateDisplayWithNumber("7");
+//        String Enternumber = jtxtDisplay.getText();
+//        NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+//
+//        if (Enternumber.isEmpty()) {
+//            // Nếu trường trống, đặt giá trị là "0"
+//            jtxtDisplay.setText(jbtnNum0.getText());
+//        } else {
+//            // Nối số mới vào chuỗi hiện tại
+//            Enternumber += jbtnNum0.getText();
+//
+//            // Chuyển đổi chuỗi thành số
+//            try {
+//                double value = Double.parseDouble(Enternumber);
+//                // Định dạng số với dấu phẩy
+//                String formattedValue = numberFormat.format(value);
+//                jtxtDisplay.setText(formattedValue);
+//            } catch (NumberFormatException e) {
+//                // Xử lý nếu không thể chuyển đổi thành số
+//                JOptionPane.showMessageDialog(this, "Giá trị không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//            }
+//        }
+// 7
+//        String Enternumber = jtxtDisplay.getText();
+//        
+//        if (Enternumber == "")
+//        {
+//            jtxtDisplay.setText(jbtnNum7.getText());
+//        }
+//        else{
+//            Enternumber = jtxtDisplay.getText() + jbtnNum7.getText();
+//            jtxtDisplay.setText(Enternumber);
+//        }updateDisplayWithNumber("8");
         
-        if (Enternumber == "")
-        {
-            jtxtDisplay.setText(jbtnNum7.getText());
-        }
-        else{
-            Enternumber = jtxtDisplay.getText() + jbtnNum7.getText();
-            jtxtDisplay.setText(Enternumber);
-        }
     }//GEN-LAST:event_jbtnNum7ActionPerformed
 
     private void jbtnNum8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum8ActionPerformed
+        updateDisplayWithNumber("8");
+        handleNumberInput("8");
         // 8:
-        String Enternumber = jtxtDisplay.getText();
-        
-        if (Enternumber == "")
-        {
-            jtxtDisplay.setText(jbtnNum8.getText());
-        }
-        else{
-            Enternumber = jtxtDisplay.getText() + jbtnNum8.getText();
-            jtxtDisplay.setText(Enternumber);
-        }
+//        String Enternumber = jtxtDisplay.getText();
+//        
+//        if (Enternumber == "")
+//        {
+//            jtxtDisplay.setText(jbtnNum8.getText());
+//        }
+//        else{
+//            Enternumber = jtxtDisplay.getText() + jbtnNum8.getText();
+//            jtxtDisplay.setText(Enternumber);
+//        }
     }//GEN-LAST:event_jbtnNum8ActionPerformed
 
     private void jbtnNum9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum9ActionPerformed
-        // 9
-        String Enternumber = jtxtDisplay.getText();
-        
-        if (Enternumber == "")
-        {
-            jtxtDisplay.setText(jbtnNum9.getText());
-        }
-        else{
-            Enternumber = jtxtDisplay.getText() + jbtnNum9.getText();
-            jtxtDisplay.setText(Enternumber);
-        }
+        updateDisplayWithNumber("9");
+        handleNumberInput("0");
+//        // 9
+//        String Enternumber = jtxtDisplay.getText();
+//
+//        if (Enternumber == "")
+//        {
+//            jtxtDisplay.setText(jbtnNum9.getText());
+//        }
+//        else{
+//            Enternumber = jtxtDisplay.getText() + jbtnNum9.getText();
+//            jtxtDisplay.setText(Enternumber);
+//        }
     }//GEN-LAST:event_jbtnNum9ActionPerformed
 
     private void jbtnNum4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum4ActionPerformed
         // 4
-        String Enternumber = jtxtDisplay.getText();
-        
-        if (Enternumber == "")
-        {
-            jtxtDisplay.setText(jbtnNum4.getText());
-        }
-        else{
-            Enternumber = jtxtDisplay.getText() + jbtnNum4.getText();
-            jtxtDisplay.setText(Enternumber);
-        }
+        handleNumberInput("4");
+        updateDisplayWithNumber("4");
+//        String Enternumber = jtxtDisplay.getText();
+//        
+//        if (Enternumber == "")
+//        {
+//            jtxtDisplay.setText(jbtnNum4.getText());
+//        }
+//        else{
+//            Enternumber = jtxtDisplay.getText() + jbtnNum4.getText();
+//            jtxtDisplay.setText(Enternumber);
+//        }
     }//GEN-LAST:event_jbtnNum4ActionPerformed
 
     private void jbtnNum5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum5ActionPerformed
         // 5:
-        String Enternumber = jtxtDisplay.getText();
-        
-        if (Enternumber == "")
-        {
-            jtxtDisplay.setText(jbtnNum5.getText());
-        }
-        else{
-            Enternumber = jtxtDisplay.getText() + jbtnNum5.getText();
-            jtxtDisplay.setText(Enternumber);
-        }
+        handleNumberInput("5");
+        updateDisplayWithNumber("5");
+//        String Enternumber = jtxtDisplay.getText();
+//        
+//        if (Enternumber == "")
+//        {
+//            jtxtDisplay.setText(jbtnNum5.getText());
+//        }
+//        else{
+//            Enternumber = jtxtDisplay.getText() + jbtnNum5.getText();
+//            jtxtDisplay.setText(Enternumber);
+//        }
         
     }//GEN-LAST:event_jbtnNum5ActionPerformed
 
     private void jbtnNum6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum6ActionPerformed
         // 6
-        String Enternumber = jtxtDisplay.getText();
-        
-        if (Enternumber == "")
-        {
-            jtxtDisplay.setText(jbtnNum6.getText());
-        }
-        else{
-            Enternumber = jtxtDisplay.getText() + jbtnNum6.getText();
-            jtxtDisplay.setText(Enternumber);
-        }
+        handleNumberInput("6");
+        updateDisplayWithNumber("6");
+//        String Enternumber = jtxtDisplay.getText();
+//        
+//        if (Enternumber == "")
+//        {
+//            jtxtDisplay.setText(jbtnNum6.getText());
+//        }
+//        else{
+//            Enternumber = jtxtDisplay.getText() + jbtnNum6.getText();
+//            jtxtDisplay.setText(Enternumber);
+//        }
     }//GEN-LAST:event_jbtnNum6ActionPerformed
 
     private void jbtnNum1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum1ActionPerformed
         // 1
-        String Enternumber = jtxtDisplay.getText();
-        
-        if (Enternumber == "")
-        {
-            jtxtDisplay.setText(jbtnNum1.getText());
-        }
-        else{
-            Enternumber = jtxtDisplay.getText() + jbtnNum1.getText();
-            jtxtDisplay.setText(Enternumber);
-        }
+        handleNumberInput("1");
+        updateDisplayWithNumber("1");
+//        String Enternumber = jtxtDisplay.getText();
+//        
+//        if (Enternumber == "")
+//        {
+//            jtxtDisplay.setText(jbtnNum1.getText());
+//        }
+//        else{
+//            Enternumber = jtxtDisplay.getText() + jbtnNum1.getText();
+//            jtxtDisplay.setText(Enternumber);
+//        }
     }//GEN-LAST:event_jbtnNum1ActionPerformed
 
     private void jbtnNum2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum2ActionPerformed
         // 2
-        String Enternumber = jtxtDisplay.getText();
-        
-        if (Enternumber == "")
-        {
-            jtxtDisplay.setText(jbtnNum2.getText());
-        }
-        else{
-            Enternumber = jtxtDisplay.getText() + jbtnNum2.getText();
-            jtxtDisplay.setText(Enternumber);
-        }
+        handleNumberInput("2");
+        updateDisplayWithNumber("2");
+//        String Enternumber = jtxtDisplay.getText();
+//        
+//        if (Enternumber == "")
+//        {
+//            jtxtDisplay.setText(jbtnNum2.getText());
+//        }
+//        else{
+//            Enternumber = jtxtDisplay.getText() + jbtnNum2.getText();
+//            jtxtDisplay.setText(Enternumber);
+//        }
     }//GEN-LAST:event_jbtnNum2ActionPerformed
 
     private void jbtnNum3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum3ActionPerformed
         // 3
-        String Enternumber = jtxtDisplay.getText();
-        
-        if (Enternumber == "")
-        {
-            jtxtDisplay.setText(jbtnNum3.getText());
-        }
-        else{
-            Enternumber = jtxtDisplay.getText() + jbtnNum3.getText();
-            jtxtDisplay.setText(Enternumber);
-        }
+        handleNumberInput("3");
+        updateDisplayWithNumber("3");
+//        String Enternumber = jtxtDisplay.getText();
+//        
+//        if (Enternumber == "")
+//        {
+//            jtxtDisplay.setText(jbtnNum3.getText());
+//        }
+//        else{
+//            Enternumber = jtxtDisplay.getText() + jbtnNum3.getText();
+//            jtxtDisplay.setText(Enternumber);
+//        }
     }//GEN-LAST:event_jbtnNum3ActionPerformed
 
     private void jbtnDotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDotActionPerformed
         // dot
-        if(! jtxtDisplay.getText().contains("."))
+        if(! jtxtDisplayDouble.getText().contains("."))
         {
+            jtxtDisplayDouble.setText(jtxtDisplayDouble.getText() + jbtnDot.getText());
             jtxtDisplay.setText(jtxtDisplay.getText() + jbtnDot.getText());
         }
     }//GEN-LAST:event_jbtnDotActionPerformed
 
     private void jbtnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPayActionPerformed
-        double cash = Double.parseDouble(jtxtDisplay.getText());
+        double cash = Double.parseDouble(jtxtDisplayDouble.getText());
         if (jcboPayment.getSelectedItem().equals("Cash")) {
         Change(); // Tính tiền thối
 
@@ -1295,7 +1462,7 @@ public class JavaPOS extends javax.swing.JFrame {
         
         if (cash < grandTotal){
             JOptionPane.showMessageDialog(this, "Số tiền mặt không đủ! Vui lòng nhập lại.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-            jtxtDisplay.setText("");
+            jtxtDisplayDouble.setText("");
             return;
         }
         
@@ -1319,7 +1486,7 @@ public class JavaPOS extends javax.swing.JFrame {
         jbtnResetActionPerformed(evt);
     } else {
         jtxtChange.setText("");
-        jtxtDisplay.setText("");
+        jtxtDisplayDouble.setText("");
     }
     }//GEN-LAST:event_jbtnPayActionPerformed
 
@@ -1330,8 +1497,9 @@ public class JavaPOS extends javax.swing.JFrame {
         jtxtTax.setText("");
         jtxtTotal.setText("");
         jtxtSubTotal.setText("");
+        jtxtDisplayDouble.setText("");
+        jtxtDisplayDouble.setText("");
         jtxtDisplay.setText("");
-        jtxtDisplayPhoneNum.setText("");
     }//GEN-LAST:event_jbtnResetActionPerformed
 
     private void jbtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPrintActionPerformed
@@ -1365,28 +1533,31 @@ public class JavaPOS extends javax.swing.JFrame {
         else
         {
                 jtxtChange.setText("");
-                jtxtDisplay.setText("");
+                jtxtDisplayDouble.setText("");
         }
     }//GEN-LAST:event_jbtnRemoveActionPerformed
 private JFrame frame;
     private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
         
-        
-        frame = new JFrame("Exit");
-        if (JOptionPane.showConfirmDialog(frame,"Confirm if you want to exit", "Point of Sale", 
+        if (JOptionPane.showConfirmDialog(frame,"Confirm if you want to Lock Screen!", "Point of Sale", 
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION)
         {
-            System.exit(0);
+            LockScreen lockscreen = new LockScreen();
+            lockscreen.setVisible(true);
+            this.dispose();
         }
+        
+//        frame = new JFrame("Exit");
+//        if (JOptionPane.showConfirmDialog(frame,"Confirm if you want to exit", "Point of Sale", 
+//                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION)
+//        {
+//            System.exit(0);
+//        }
     }//GEN-LAST:event_jbtnExitActionPerformed
 
     private void jcboPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcboPaymentActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcboPaymentActionPerformed
-
-    private void jtxtDisplayPhoneNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtDisplayPhoneNumActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtxtDisplayPhoneNumActionPerformed
 
     private void jbtnInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInvoiceActionPerformed
         // go to Invoice.java
@@ -1394,6 +1565,14 @@ private JFrame frame;
         invoiceScreen.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jbtnInvoiceActionPerformed
+
+    private void jtxtSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtSubTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtSubTotalActionPerformed
+
+    private void jtxtDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtDisplayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtDisplayActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1446,6 +1625,7 @@ private JFrame frame;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
@@ -1493,7 +1673,7 @@ private JFrame frame;
     private javax.swing.JComboBox<String> jcboPayment;
     private javax.swing.JTextField jtxtChange;
     private javax.swing.JTextField jtxtDisplay;
-    private javax.swing.JTextField jtxtDisplayPhoneNum;
+    private javax.swing.JTextField jtxtDisplayDouble;
     private javax.swing.JTextField jtxtSubTotal;
     private javax.swing.JTextField jtxtTax;
     private javax.swing.JTextField jtxtTotal;
