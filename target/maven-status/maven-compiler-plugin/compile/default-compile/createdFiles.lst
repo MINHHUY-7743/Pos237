@@ -1,4 +1,6 @@
+Invoice$8.class
 JavaPOS$20.class
+entity\EntityProduct.class
 JavaPOS$10.class
 JavaPOS$30.class
 JavaPOS$2.class
@@ -12,10 +14,13 @@ JavaPOS$13.class
 JavaPOS$6.class
 JavaPOS$46.class
 JavaPOS$36.class
+Invoice$5.class
 JavaPOS$9.class
 JavaPOS$3.class
 JavaPOS$16.class
 JavaPOS$34.class
+entity\EntityInvoiceDetail.class
+Invoice$7.class
 JavaPOS$14.class
 JavaPOS.class
 com\mycompany\javapos\JavaPOS.class
@@ -32,9 +37,9 @@ JavaPOS$25.class
 JavaPOS$45.class
 Invoice.class
 JavaPOS$4.class
+dao\InvoiceDAO.class
 Invoice$3.class
 JavaPOS$7.class
-entity\InvoiceDetail.class
 JavaPOS$51.class
 JavaPOS$19.class
 JavaPOS$1.class
@@ -50,10 +55,11 @@ JavaPOS$44.class
 Invoice$2.class
 JavaPOS$24.class
 JavaPOS$18.class
+entity\EntityInvoice.class
 JavaPOS$38.class
-entity\Product.class
 JavaPOS$47.class
 JavaPOS$12.class
+Invoice$6.class
 JavaPOS$32.class
 JavaPOS$40.class
 JavaPOS$5.class

@@ -8,12 +8,12 @@ package entity;
  *
  * @author Huy
  */
-public class Product {
+public class EntityProduct {
     private int idProduct;
     private String nameProduct;
     private double price;
 
-    public Product(int idProduct, String nameProduct, double price) {
+    public EntityProduct(int idProduct, String nameProduct, double price) {
         this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.price = price;

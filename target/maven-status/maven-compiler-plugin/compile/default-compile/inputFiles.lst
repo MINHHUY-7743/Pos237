@@ -1,6 +1,8 @@
 C:\Users\Huy\school\HDT-java\pos\javaPOS\src\main\java\com\mycompany\javapos\JavaPOS.java
+C:\Users\Huy\school\HDT-java\pos\javaPOS\src\main\java\dao\InvoiceDAO.java
 C:\Users\Huy\school\HDT-java\pos\javaPOS\src\main\java\dao\ProductDAO.java
-C:\Users\Huy\school\HDT-java\pos\javaPOS\src\main\java\entity\InvoiceDetail.java
-C:\Users\Huy\school\HDT-java\pos\javaPOS\src\main\java\entity\Product.java
+C:\Users\Huy\school\HDT-java\pos\javaPOS\src\main\java\entity\EntityInvoice.java
+C:\Users\Huy\school\HDT-java\pos\javaPOS\src\main\java\entity\EntityInvoiceDetail.java
+C:\Users\Huy\school\HDT-java\pos\javaPOS\src\main\java\entity\EntityProduct.java
 C:\Users\Huy\school\HDT-java\pos\javaPOS\src\main\java\Invoice.java
 C:\Users\Huy\school\HDT-java\pos\javaPOS\src\main\java\JavaPOS.java

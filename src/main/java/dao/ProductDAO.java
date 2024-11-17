@@ -1,6 +1,6 @@
 package dao;
-import entity.InvoiceDetail;
-import entity.Product;
+import entity.EntityInvoiceDetail;
+import entity.EntityProduct;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO {
-    public List<Product> getAllProducts() {
-        List<Product> productList = new ArrayList<>();
+    public List<EntityProduct> getAllProducts() {
+        List<EntityProduct> productList = new ArrayList<>();
         
         try {
             String hostname = "localhost";
@@ -33,7 +33,7 @@ public class ProductDAO {
             ResultSet rs = pstmt.executeQuery();
             
             while (rs.next()) {
-                Product product = new Product(
+                EntityProduct product = new EntityProduct(
                     rs.getInt("IDPRODUCT"), 
                     rs.getString("NAMEPRODUCT"), 
                     rs.getDouble("PRICE")
@@ -49,8 +49,8 @@ public class ProductDAO {
         return productList;
     }
     
-    public Product getProductById(int id) {
-        Product product = null;
+    public EntityProduct getProductById(int id) {
+        EntityProduct product = null;
         
         try {
             String hostname = "localhost";
@@ -74,7 +74,7 @@ public class ProductDAO {
             ResultSet rs = pstmt.executeQuery();
             
             if (rs.next()) {
-                product = new Product(
+                product = new EntityProduct(
                     rs.getInt("IDPRODUCT"), 
                     rs.getString("NAMEPRODUCT"), 
                     rs.getDouble("PRICE")
@@ -90,7 +90,7 @@ public class ProductDAO {
     }
     
     
-    public void saveInvoice(double total, double tax, double grandTotal, List<InvoiceDetail> invoiceDetails) {
+    public void saveInvoice(double total, double tax, double grandTotal, List<EntityInvoiceDetail> invoiceDetails) {
         Connection conn = null;
         PreparedStatement pstmtInvoice = null;
         PreparedStatement pstmtDetail = null;
@@ -129,7 +129,7 @@ public class ProductDAO {
             String sqlDetail = "INSERT INTO InvoiceDetail (invoice_id, product_name, quantity, price) VALUES (?, ?, ?, ?)";
             pstmtDetail = conn.prepareStatement(sqlDetail);
         
-            for (InvoiceDetail detail : invoiceDetails) {
+            for (EntityInvoiceDetail detail : invoiceDetails) {
                 pstmtDetail.setInt(1, invoiceId);
                 pstmtDetail.setString(2, detail.getProductName());
                 pstmtDetail.setInt(3, detail.getQuantity());

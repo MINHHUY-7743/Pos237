@@ -1,7 +1,7 @@
 
 import dao.ProductDAO;
-import entity.InvoiceDetail;
-import entity.Product;
+import entity.EntityInvoiceDetail;
+import entity.EntityProduct;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.Connection;
@@ -762,7 +762,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu3ActionPerformed
         int id = 3;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -779,7 +779,7 @@ public class JavaPOS extends javax.swing.JFrame {
         int id = 1;
         //add id in to list bills
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -796,7 +796,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu2ActionPerformed
         int id = 2;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -812,7 +812,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu4ActionPerformed
         int id = 4;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -828,7 +828,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu5ActionPerformed
         int id = 5;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -844,7 +844,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu6ActionPerformed
         int id = 6;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -907,7 +907,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu7ActionPerformed
         int id = 7;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -927,7 +927,7 @@ public class JavaPOS extends javax.swing.JFrame {
         //itemcost();
         int id = 8;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -943,7 +943,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu9ActionPerformed
         int id = 9;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -959,7 +959,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu10ActionPerformed
         int id = 10;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -975,7 +975,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu11ActionPerformed
         int id = 11;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -991,7 +991,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu12ActionPerformed
         int id = 12;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -1007,7 +1007,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu13ActionPerformed
         int id = 13;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -1023,7 +1023,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu14ActionPerformed
         int id = 14;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -1039,7 +1039,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu15ActionPerformed
         int id = 15;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -1055,7 +1055,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu16ActionPerformed
         int id = 16;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -1071,7 +1071,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu17ActionPerformed
         int id = 17;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -1087,7 +1087,7 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnMenu18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenu18ActionPerformed
         int id = 18;
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductById(id);
+        EntityProduct product = productDAO.getProductById(id);
         if (product != null) { 
             String nameOfItem = product.getNameProduct(); 
             double priceOfItem = product.getPrice(); 
@@ -1300,12 +1300,12 @@ public class JavaPOS extends javax.swing.JFrame {
         }
         
         // Tạo danh sách chi tiết hóa đơn
-        List<InvoiceDetail> invoiceDetails = new ArrayList<>();
+        List<EntityInvoiceDetail> invoiceDetails = new ArrayList<>();
         for (int i = 0; i < jTable1.getRowCount(); i++) {
             String productName = (String) jTable1.getValueAt(i, 0);
             int quantity = Integer.parseInt((String) jTable1.getValueAt(i, 1));
             double price = Double.parseDouble(jTable1.getValueAt(i, 2).toString().replace("$", "").trim());
-            invoiceDetails.add(new InvoiceDetail(productName, quantity, price));
+            invoiceDetails.add(new EntityInvoiceDetail(productName, quantity, price));
         }
 
         // Lưu hóa đơn vào cơ sở dữ liệu
