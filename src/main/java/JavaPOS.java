@@ -1390,6 +1390,9 @@ private JFrame frame;
 
     private void jbtnInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInvoiceActionPerformed
         // go to Invoice.java
+        Invoice invoiceScreen = new Invoice();
+        invoiceScreen.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jbtnInvoiceActionPerformed
 
     /**

@@ -61,8 +61,8 @@ public class Invoice extends javax.swing.JFrame {
         }
         
         // Cập nhật các nhãn thống kê
-//            jLabelTotalInvoice.setText("Tổng số hóa đơn: " + invoices.size());
-//            jLabelTotalRevenue.setText(String.format("Tổng doanh thu: %.2f VND", totalRevenue));
+            jLabelTotalInvoice.setText("Tổng số hóa đơn: " + invoices.size());
+            jLabelTotalRevenue.setText(String.format("Tổng doanh thu: %.2f VND", totalRevenue));
     }
     
     // Phương thức load chi tiết hóa đơn
@@ -131,6 +131,10 @@ public class Invoice extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jbtnPos = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabelTotalRevenue = new javax.swing.JLabel();
+        jLabelTotalInvoice = new javax.swing.JLabel();
+        jLabelTotalRevenue1 = new javax.swing.JLabel();
+        jLabelTotalRevenue2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -157,7 +161,7 @@ public class Invoice extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableInvoiceDetail);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 840, 620));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 840, 500));
 
         jTableInvoice.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTableInvoice.setModel(new javax.swing.table.DefaultTableModel(
@@ -223,6 +227,35 @@ public class Invoice extends javax.swing.JFrame {
         });
         getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 100, 80, 40));
 
+        jLabelTotalRevenue.setBackground(new java.awt.Color(255, 255, 204));
+        jLabelTotalRevenue.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabelTotalRevenue.setText("Total: ");
+        getContentPane().add(jLabelTotalRevenue, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 690, 280, 40));
+
+        jLabelTotalInvoice.setBackground(new java.awt.Color(255, 255, 204));
+        jLabelTotalInvoice.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabelTotalInvoice.setText("Total Invoice: ");
+        getContentPane().add(jLabelTotalInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 280, 40));
+
+        jLabelTotalRevenue1.setBackground(new java.awt.Color(255, 255, 204));
+        jLabelTotalRevenue1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabelTotalRevenue1.setText("TotalRevenue:");
+        jLabelTotalRevenue1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jLabelTotalRevenue1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        getContentPane().add(jLabelTotalRevenue1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 280, 40));
+
+        jLabelTotalRevenue2.setBackground(new java.awt.Color(255, 255, 204));
+        jLabelTotalRevenue2.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabelTotalRevenue2.setText("Tax:");
+        getContentPane().add(jLabelTotalRevenue2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 690, 280, 40));
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -275,6 +308,10 @@ public class Invoice extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void jLabelTotalRevenue1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabelTotalRevenue1AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelTotalRevenue1AncestorAdded
+
     /**
      * @param args the command line arguments
      */
@@ -307,7 +344,7 @@ public class Invoice extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new EntityInvoice().setVisible(true);
+                new Invoice().setVisible(true);
             }
         });
     }
@@ -317,6 +354,10 @@ public class Invoice extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDateChooserDateOfInvoice;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelTotalInvoice;
+    private javax.swing.JLabel jLabelTotalRevenue;
+    private javax.swing.JLabel jLabelTotalRevenue1;
+    private javax.swing.JLabel jLabelTotalRevenue2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableInvoice;
