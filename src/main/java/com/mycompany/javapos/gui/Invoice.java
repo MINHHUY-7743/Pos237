@@ -260,17 +260,17 @@ public class Invoice extends javax.swing.JFrame {
         getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 100, 80, 40));
 
         jLabelTotalGrand.setBackground(new java.awt.Color(255, 255, 204));
-        jLabelTotalGrand.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabelTotalGrand.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabelTotalGrand.setText("Grand Total: ");
-        getContentPane().add(jLabelTotalGrand, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 690, 280, 40));
+        getContentPane().add(jLabelTotalGrand, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 690, 330, 40));
 
         jLabelTotalInvoice.setBackground(new java.awt.Color(255, 255, 204));
-        jLabelTotalInvoice.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabelTotalInvoice.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabelTotalInvoice.setText("Total Invoice: ");
         getContentPane().add(jLabelTotalInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 280, 40));
 
         jLabelTotalRevenue.setBackground(new java.awt.Color(255, 255, 204));
-        jLabelTotalRevenue.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabelTotalRevenue.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabelTotalRevenue.setText("TotalRevenue:");
         jLabelTotalRevenue.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -281,15 +281,15 @@ public class Invoice extends javax.swing.JFrame {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        getContentPane().add(jLabelTotalRevenue, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 280, 40));
+        getContentPane().add(jLabelTotalRevenue, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 730, 40));
 
         jLabelTax.setBackground(new java.awt.Color(255, 255, 204));
-        jLabelTax.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabelTax.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabelTax.setText("Tax:");
         getContentPane().add(jLabelTax, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 690, 240, 40));
 
         jLabelTotal.setBackground(new java.awt.Color(255, 255, 204));
-        jLabelTotal.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabelTotal.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabelTotal.setText("Total: ");
         getContentPane().add(jLabelTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 690, 280, 40));
 

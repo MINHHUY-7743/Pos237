@@ -4,10 +4,6 @@
  */
 package com.mycompany.javapos.entity;
 
-/**
- *
- * @author Huy
- */
 public class EntityInvoiceDetail {
     private String productName;
     private int quantity;

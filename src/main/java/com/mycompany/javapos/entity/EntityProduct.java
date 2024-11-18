@@ -4,10 +4,6 @@
  */
 package com.mycompany.javapos.entity;
 
-/**
- *
- * @author Huy
- */
 public class EntityProduct {
     private int idProduct;
     private String nameProduct;

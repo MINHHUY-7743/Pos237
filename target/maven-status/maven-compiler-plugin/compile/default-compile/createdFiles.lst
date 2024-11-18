@@ -7,6 +7,7 @@ com\mycompany\javapos\gui\POS$23.class
 com\mycompany\javapos\gui\Invoice$8.class
 com\mycompany\javapos\gui\POS$7.class
 com\mycompany\javapos\gui\Invoice$1.class
+com\mycompany\javapos\JavaPOS$1.class
 com\mycompany\javapos\gui\LockScreen$8.class
 com\mycompany\javapos\gui\POS$13.class
 com\mycompany\javapos\gui\POS$17.class
@@ -66,7 +67,6 @@ com\mycompany\javapos\gui\POS$6.class
 com\mycompany\javapos\gui\POS$14.class
 com\mycompany\javapos\gui\POS$34.class
 com\mycompany\javapos\gui\POS.class
-com\mycompany\javapos\gui\PdfWriter.class
 com\mycompany\javapos\gui\POS$22.class
 com\mycompany\javapos\gui\LockScreen$7.class
 com\mycompany\javapos\dao\ProductDAO.class

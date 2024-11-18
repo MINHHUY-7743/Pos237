@@ -97,7 +97,6 @@ public class POS extends javax.swing.JFrame {
         //jtxtBarCode.setText(iSubTotal);
         
     }
-//=================================Funtion Change==================================================================================
     public void Change()
     {
         double sum = 0;
@@ -115,66 +114,7 @@ public class POS extends javax.swing.JFrame {
         //String ChangeGiven = String.format("$ %.2f", cChange);
         jtxtChange.setText(String.format("%s VND",numberFormat.format(cChange)));
     }
-//=================================Funtion forcus ==================================================================================
-//    private void addNumberToFocusedField(String number) {
-//        JTextField focusedField = null;
-//    
-//        // Kiểm tra trường nào đang có tiêu điểm
-//        if (jtxtDisplay.isFocusOwner()) {
-//            focusedField = jtxtDisplay;
-//        } else if (jtxtDisplayDouble.isFocusOwner()) {
-//            focusedField = jtxtDisplayDouble;
-//        }
-//
-//        if (focusedField != null) {
-//            String currentText = focusedField.getText();
-//            // Kiểm tra nếu trống, đặt giá trị là "0"
-//            if (currentText.isEmpty()) {
-//                focusedField.setText(number);
-//            } else {
-//                // Nối chuỗi số mới
-//                focusedField.setText(currentText + number);
-//            }
-//        }    
-//    }
-    
-    //=================================Funtion Change==================================================================================
-//    private void handleNumberInput(String number) {
-//        if (jtxtDisplay.isFocusOwner()) {
-//            jtxtDisplay.setText(jtxtDisplay.getText() + number);
-//        } else if (jtxtDisplayPhoneNum.isFocusOwner()) {
-//            jtxtDisplayPhoneNum.setText(jtxtDisplayPhoneNum.getText() + number);
-//        }
-//    }    
-    //=================================Funtion Change==================================================================================
-//    private void updateDisplayWithNumber(String number) {
-//        String currentNumber = jtxtDisplay.getText();
-//        NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
-//
-//        // Loại bỏ dấu phẩy khỏi chuỗi hiện tại
-//        currentNumber = currentNumber.replaceAll(",", "");
-//
-//        if (currentNumber.isEmpty()) {
-//            // Nếu trường trống, đặt giá trị là số vừa nhấn
-//            jtxtDisplay.setText(number);
-//        } else {
-//            // Nối số mới vào chuỗi hiện tại
-//            currentNumber += number;
-//
-//            // Chuyển đổi chuỗi thành số
-//            try {
-//                double value = Double.parseDouble(currentNumber);
-//                // Định dạng số với dấu phẩy
-//                String formattedValue = numberFormat.format(value);
-//                jtxtDisplay.setText(formattedValue);
-//            } catch (NumberFormatException e) {
-//                // Xử lý nếu không thể chuyển đổi thành số
-//                JOptionPane.showMessageDialog(this, "Giá trị không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-//            }
-//        }
-//    }
-     
-    
+
     private void updateDisplayWithNumber(String number) {
         String currentNumber = jtxtDisplay.getText();
 
@@ -840,7 +780,7 @@ public class POS extends javax.swing.JFrame {
         jPanel13.add(jbtnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 150, 50));
 
         jbtnExit.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jbtnExit.setText("Exit");
+        jbtnExit.setText("Lock Screen");
         jbtnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnExitActionPerformed(evt);

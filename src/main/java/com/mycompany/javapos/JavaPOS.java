@@ -4,13 +4,15 @@
 
 package com.mycompany.javapos;
 
-/**
- *
- * @author Huy
- */
+import com.mycompany.javapos.gui.LockScreen;
+
 public class JavaPOS {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LockScreen().setVisible(true);
+            }
+        });
     }
 }
