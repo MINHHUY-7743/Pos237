@@ -12,6 +12,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
+import static java.awt.print.Printable.NO_SUCH_PAGE;
+import static java.awt.print.Printable.PAGE_EXISTS;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.sql.Connection;
@@ -113,40 +115,7 @@ public class POS extends javax.swing.JFrame {
         //String ChangeGiven = String.format("$ %.2f", cChange);
         jtxtChange.setText(String.format("%s VND",numberFormat.format(cChange)));
     }
-//=================================Funtion Change==================================================================================
-
-    private void generateInvoice() {
-        StringBuilder invoice = new StringBuilder();
-        invoice.append("HÓA ĐƠN THANH TOÁN\n");
-        invoice.append("===================================\n");
-    
-        double total = 0.0;
-    
-        // Lặp qua từng hàng trong bảng để tạo hóa đơn
-        for (int i = 0; i < jTable1.getRowCount(); i++) {
-            String itemName = (String) jTable1.getValueAt(i, 0); // Tên sản phẩm
-            String quantity = (String) jTable1.getValueAt(i, 1); // Số lượng
-            String amount = (String) jTable1.getValueAt(i, 2); // Giá tiền
-        
-            invoice.append(itemName + " x " + quantity + " = " + amount + "\n");
-            total += Double.parseDouble(amount.replace("$", "").trim()); // Cộng dồn tổng tiền
-        }
-    
-        // Tính thuế và tổng tiền
-        double tax = total * 0.039; // Giả sử thuế là 3.9%
-        double grandTotal = total + tax;
-    
-        invoice.append("===================================\n");
-        invoice.append("Tổng cộng: $" + String.format("%.2f", total) + "\n");
-        invoice.append("Thuế: $" + String.format("%.2f", tax) + "\n");
-        invoice.append("Tổng tiền thanh toán: $" + String.format("%.2f", grandTotal) + "\n");
-        invoice.append("===================================\n");
-        invoice.append("Cảm ơn bạn đã mua hàng!\n");
-    
-        // Hiển thị hóa đơn
-        JOptionPane.showMessageDialog(this, invoice.toString(), "Hóa Đơn", JOptionPane.INFORMATION_MESSAGE);
-    }    
-    //=================================Funtion forcus ==================================================================================
+//=================================Funtion forcus ==================================================================================
 //    private void addNumberToFocusedField(String number) {
 //        JTextField focusedField = null;
 //    
@@ -250,7 +219,69 @@ public class POS extends javax.swing.JFrame {
             currentText += number;
             jtxtDisplayDouble.setText(currentText);
         }
-    }    
+    }
+    
+    private void PrintToPdf()
+    {
+        PrinterJob job = PrinterJob.getPrinterJob();
+        job.setPrintable(new Printable() {
+            @Override
+            public int print(Graphics g, PageFormat pf, int pageIndex) throws PrinterException {
+                if (pageIndex > 0) {
+                    return NO_SUCH_PAGE;
+                }
+
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.translate(pf.getImageableX(), pf.getImageableY());
+
+                int xMargin = 50; // Lề trái
+                int y = 50;       // Vị trí bắt đầu theo trục dọc (y-axis)
+
+                // Tiêu đề "HÓA ĐƠN THANH TOÁN"
+                String title = "HÓA ĐƠN THANH TOÁN";
+                Font titleFont = new Font("Serif", Font.BOLD, 20);
+                g.setFont(titleFont);
+                g.drawString(title, xMargin, y);
+                y += 40; // Xuống dòng sau tiêu đề
+
+                // In JTable
+                g2d.translate(xMargin, y); // Đặt JTable tại vị trí lề trái
+                jTable1.printAll(g);
+                g2d.translate(-xMargin, -y); // Reset lại vị trí vẽ
+                y += jTable1.getHeight() + 20; // Xuống dòng dưới JTable
+
+                // Lấy thông tin từ JTextField
+                String subTotal = "Subtotal: " + jtxtSubTotal.getText();
+                String tax = "Tax: " + jtxtTax.getText();
+                String total = "Total: " + jtxtTotal.getText();
+                String cash = "Cash: " + jtxtDisplay.getText();
+                String change = "Change: " + jtxtChange.getText();
+
+                // Định dạng font cho thông tin
+                Font textFont = new Font("Serif", Font.PLAIN, 14);
+                g.setFont(textFont);
+
+                // In từng thông tin, căn lề trái
+                String[] infoLines = {subTotal, tax, total, cash, change};
+                for (String line : infoLines) {
+                    g.drawString(line, xMargin, y);
+                    y += 20; // Xuống dòng
+                }
+
+                return PAGE_EXISTS;
+            }
+        });
+
+        // Hiển thị hộp thoại in
+        boolean doPrint = job.printDialog();
+        if (doPrint) {
+            try {
+                job.print();
+            } catch (PrinterException e) {
+                System.err.println("Printing failed: " + e.getMessage());
+            }
+        }
+    }
 //=================================Funtion==================================================================================
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -1484,65 +1515,8 @@ public class POS extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnResetActionPerformed
 
     private void jbtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPrintActionPerformed
-        
-        PrinterJob job = PrinterJob.getPrinterJob();
-        job.setPrintable(new Printable() {
-            @Override
-            public int print(Graphics g, PageFormat pf, int pageIndex) throws PrinterException {
-                if (pageIndex > 0) {
-                    return NO_SUCH_PAGE;
-                }
-
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.translate(pf.getImageableX(), pf.getImageableY());
-
-                int xMargin = 50; // Lề trái
-                int y = 50;       // Vị trí bắt đầu theo trục dọc (y-axis)
-
-                // Tiêu đề "HÓA ĐƠN THANH TOÁN"
-                String title = "HÓA ĐƠN THANH TOÁN";
-                Font titleFont = new Font("Serif", Font.BOLD, 20);
-                g.setFont(titleFont);
-                g.drawString(title, xMargin, y);
-                y += 40; // Xuống dòng sau tiêu đề
-
-                // In JTable
-                g2d.translate(xMargin, y); // Đặt JTable tại vị trí lề trái
-                jTable1.printAll(g);
-                g2d.translate(-xMargin, -y); // Reset lại vị trí vẽ
-                y += jTable1.getHeight() + 20; // Xuống dòng dưới JTable
-
-                // Lấy thông tin từ JTextField
-                String subTotal = "Subtotal: " + jtxtSubTotal.getText();
-                String tax = "Tax: " + jtxtTax.getText();
-                String total = "Total: " + jtxtTotal.getText();
-                String cash = "Cash: " + jtxtDisplay.getText();
-                String change = "Change: " + jtxtChange.getText();
-
-                // Định dạng font cho thông tin
-                Font textFont = new Font("Serif", Font.PLAIN, 14);
-                g.setFont(textFont);
-
-                // In từng thông tin, căn lề trái
-                String[] infoLines = {subTotal, tax, total, cash, change};
-                for (String line : infoLines) {
-                    g.drawString(line, xMargin, y);
-                    y += 20; // Xuống dòng
-                }
-
-                return PAGE_EXISTS;
-            }
-        });
-
-        // Hiển thị hộp thoại in
-        boolean doPrint = job.printDialog();
-        if (doPrint) {
-            try {
-                job.print();
-            } catch (PrinterException e) {
-                System.err.println("Printing failed: " + e.getMessage());
-            }
-        }
+        PrintToPdf();
+        JOptionPane.showMessageDialog(this, "Hóa đơn đã được in thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jbtnPrintActionPerformed
 
     private void jbtnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRemoveActionPerformed
