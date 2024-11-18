@@ -1,3 +1,8 @@
+package com.mycompany.javapos.gui;
+
+
+import com.mycompany.javapos.gui.POS;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -261,7 +266,7 @@ public class LockScreen extends javax.swing.JFrame {
         // Kiểm tra mật khẩu
         if ("12345".equals(password)) {
             // Nếu đúng, chuyển sang màn hình khác
-            JavaPOS posScreen = new JavaPOS();
+            POS posScreen = new POS();
             posScreen.setVisible(true);
             this.dispose();
         } else {

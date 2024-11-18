@@ -1,4 +1,4 @@
-package dao;
+package com.mycompany.javapos.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import entity.EntityInvoice;
-import entity.EntityInvoiceDetail;
+import com.mycompany.javapos.entity.EntityInvoice;
+import com.mycompany.javapos.entity.EntityInvoiceDetail;
 
 public class InvoiceDAO {
     private Connection getConnection() throws SQLException {

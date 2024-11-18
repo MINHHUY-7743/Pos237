@@ -1,5 +1,5 @@
 
-package entity;
+package com.mycompany.javapos.entity;
 
 import java.util.Date;
 import java.util.List;

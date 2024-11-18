@@ -1,9 +1,19 @@
+package com.mycompany.javapos.gui;
 
-import dao.ProductDAO;
-import entity.EntityInvoiceDetail;
-import entity.EntityProduct;
+
+import com.mycompany.javapos.dao.ProductDAO;
+import com.mycompany.javapos.entity.EntityInvoiceDetail;
+import com.mycompany.javapos.entity.EntityProduct;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,23 +33,14 @@ import javax.swing.table.DefaultTableModel;
 
 
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
-/**
- *
- * @author Huy
- */
-public class JavaPOS extends javax.swing.JFrame {
+public class POS extends javax.swing.JFrame {
     //Product product = new Product(1, "Cafe", 10000);
     //List<Integer> selectedProductIds = new ArrayList<>();
 
     /**
      * Creates new form JavaPOS
      */
-    public JavaPOS() {
+    public POS() {
         initComponents();
            // Thêm FocusListener cho jtxtDisplay
         jtxtDisplayDouble.addFocusListener(new FocusAdapter() {
@@ -90,7 +91,7 @@ public class JavaPOS extends javax.swing.JFrame {
         //String iTotal = String.format("$ %.2f", cTotal1 + cTax);
         jtxtTotal.setText(String.format("%s VND",numberFormat.format(cTotal1 + cTax)));
         
-        String BarCode = String.format("Total is %.2f", cTotal1);
+        //String BarCode = String.format("Total is %.2f", cTotal1);
         //jtxtBarCode.setText(iSubTotal);
         
     }
@@ -227,10 +228,8 @@ public class JavaPOS extends javax.swing.JFrame {
     private String formatNumberWithCommas(String number) {
         // Tách phần nguyên và phần thập phân
         String[] parts = number.split("\\.");
-
         // Định dạng phần nguyên với dấu phẩy
         String integerPart = parts[0].replaceAll("(\\d)(?=(\\d{3})+$)", "$1,");
-
         if (parts.length > 1) {
             // Nếu có phần thập phân, nối lại với dấu chấm
             return integerPart + "." + parts[1];
@@ -240,10 +239,9 @@ public class JavaPOS extends javax.swing.JFrame {
         }
     }
 
-   //=============================
     private void handleNumberInput(String number) {
         String currentText = jtxtDisplayDouble.getText();
-
+        
         // Kiểm tra nếu ô nhập trống
         if (currentText.isEmpty()) {
             jtxtDisplayDouble.setText(number);
@@ -252,10 +250,8 @@ public class JavaPOS extends javax.swing.JFrame {
             currentText += number;
             jtxtDisplayDouble.setText(currentText);
         }
-    }
-
-    
-    //=========================================================
+    }    
+//=================================Funtion==================================================================================
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -693,7 +689,6 @@ public class JavaPOS extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 780, 490));
 
-        jTable1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -737,6 +732,11 @@ public class JavaPOS extends javax.swing.JFrame {
         jPanel11.add(jtxtSubTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 200, -1));
 
         jtxtTax.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jtxtTax.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtTaxActionPerformed(evt);
+            }
+        });
         jPanel11.add(jtxtTax, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 200, -1));
 
         jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 350, 160));
@@ -1393,32 +1393,13 @@ public class JavaPOS extends javax.swing.JFrame {
         // 1
         handleNumberInput("1");
         updateDisplayWithNumber("1");
-//        String Enternumber = jtxtDisplay.getText();
-//        
-//        if (Enternumber == "")
-//        {
-//            jtxtDisplay.setText(jbtnNum1.getText());
-//        }
-//        else{
-//            Enternumber = jtxtDisplay.getText() + jbtnNum1.getText();
-//            jtxtDisplay.setText(Enternumber);
-//        }
+
     }//GEN-LAST:event_jbtnNum1ActionPerformed
 
     private void jbtnNum2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum2ActionPerformed
         // 2
         handleNumberInput("2");
         updateDisplayWithNumber("2");
-//        String Enternumber = jtxtDisplay.getText();
-//        
-//        if (Enternumber == "")
-//        {
-//            jtxtDisplay.setText(jbtnNum2.getText());
-//        }
-//        else{
-//            Enternumber = jtxtDisplay.getText() + jbtnNum2.getText();
-//            jtxtDisplay.setText(Enternumber);
-//        }
     }//GEN-LAST:event_jbtnNum2ActionPerformed
 
     private void jbtnNum3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum3ActionPerformed
@@ -1449,45 +1430,45 @@ public class JavaPOS extends javax.swing.JFrame {
     private void jbtnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPayActionPerformed
         double cash = Double.parseDouble(jtxtDisplayDouble.getText());
         if (jcboPayment.getSelectedItem().equals("Cash")) {
-        Change(); // Tính tiền thối
+            Change(); // Tính tiền thối
 
-        // Tính toán tổng tiền và thuế
-        double sum = 0.0;
-        for (int i = 0; i < jTable1.getRowCount(); i++) {
-            sum += Double.parseDouble(jTable1.getValueAt(i, 2).toString().replace("$", "").trim());
-        }
+            // Tính toán tổng tiền và thuế
+            double sum = 0.0;
+            for (int i = 0; i < jTable1.getRowCount(); i++) {
+                sum += Double.parseDouble(jTable1.getValueAt(i, 2).toString().replace("$", "").trim());
+            }
 
-        double tax = sum * 0.039; // Giả sử thuế là 3.9%
-        double grandTotal = sum + tax;
-        
-        if (cash < grandTotal){
-            JOptionPane.showMessageDialog(this, "Số tiền mặt không đủ! Vui lòng nhập lại.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            double tax = sum * 0.039;
+            double grandTotal = sum + tax;
+
+            if (cash < grandTotal){
+                JOptionPane.showMessageDialog(this, "Số tiền mặt không đủ! Vui lòng nhập lại.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                jtxtDisplayDouble.setText("");
+                return;
+            }
+
+            // Tạo danh sách chi tiết hóa đơn
+            List<EntityInvoiceDetail> invoiceDetails = new ArrayList<>();
+            for (int i = 0; i < jTable1.getRowCount(); i++) {
+                String productName = (String) jTable1.getValueAt(i, 0);
+                int quantity = Integer.parseInt((String) jTable1.getValueAt(i, 1));
+                double price = Double.parseDouble(jTable1.getValueAt(i, 2).toString().replace("$", "").trim());
+                invoiceDetails.add(new EntityInvoiceDetail(productName, quantity, price));
+            }
+
+            // Lưu hóa đơn vào cơ sở dữ liệu
+            ProductDAO productDAO = new ProductDAO();
+            productDAO.saveInvoice(sum, tax, grandTotal, invoiceDetails);
+
+            // Hiển thị thông báo thành công
+            JOptionPane.showMessageDialog(this, "Hóa đơn đã được lưu thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+            // Reset bảng và các trường nhập liệu
+            //jbtnResetActionPerformed(evt);
+        } else {
+            jtxtChange.setText("");
             jtxtDisplayDouble.setText("");
-            return;
         }
-        
-        // Tạo danh sách chi tiết hóa đơn
-        List<EntityInvoiceDetail> invoiceDetails = new ArrayList<>();
-        for (int i = 0; i < jTable1.getRowCount(); i++) {
-            String productName = (String) jTable1.getValueAt(i, 0);
-            int quantity = Integer.parseInt((String) jTable1.getValueAt(i, 1));
-            double price = Double.parseDouble(jTable1.getValueAt(i, 2).toString().replace("$", "").trim());
-            invoiceDetails.add(new EntityInvoiceDetail(productName, quantity, price));
-        }
-
-        // Lưu hóa đơn vào cơ sở dữ liệu
-        ProductDAO productDAO = new ProductDAO();
-        productDAO.saveInvoice(sum, tax, grandTotal, invoiceDetails);
-
-        // Hiển thị thông báo thành công
-        JOptionPane.showMessageDialog(this, "Hóa đơn đã được lưu thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-
-        // Reset bảng và các trường nhập liệu
-        jbtnResetActionPerformed(evt);
-    } else {
-        jtxtChange.setText("");
-        jtxtDisplayDouble.setText("");
-    }
     }//GEN-LAST:event_jbtnPayActionPerformed
 
     private void jbtnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnResetActionPerformed
@@ -1504,16 +1485,63 @@ public class JavaPOS extends javax.swing.JFrame {
 
     private void jbtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPrintActionPerformed
         
-        MessageFormat header = new MessageFormat("Printing in Progress");
-        MessageFormat footer = new MessageFormat("Page {0, number, integer}");
-        
-        try
-        {
-            jTable1.print(JTable.PrintMode.NORMAL, header, footer);
-        }
-        catch(java.awt.print.PrinterException e)
-        {
-            System.err.format("No Printer found", e.getMessage());
+        PrinterJob job = PrinterJob.getPrinterJob();
+        job.setPrintable(new Printable() {
+            @Override
+            public int print(Graphics g, PageFormat pf, int pageIndex) throws PrinterException {
+                if (pageIndex > 0) {
+                    return NO_SUCH_PAGE;
+                }
+
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.translate(pf.getImageableX(), pf.getImageableY());
+
+                int xMargin = 50; // Lề trái
+                int y = 50;       // Vị trí bắt đầu theo trục dọc (y-axis)
+
+                // Tiêu đề "HÓA ĐƠN THANH TOÁN"
+                String title = "HÓA ĐƠN THANH TOÁN";
+                Font titleFont = new Font("Serif", Font.BOLD, 20);
+                g.setFont(titleFont);
+                g.drawString(title, xMargin, y);
+                y += 40; // Xuống dòng sau tiêu đề
+
+                // In JTable
+                g2d.translate(xMargin, y); // Đặt JTable tại vị trí lề trái
+                jTable1.printAll(g);
+                g2d.translate(-xMargin, -y); // Reset lại vị trí vẽ
+                y += jTable1.getHeight() + 20; // Xuống dòng dưới JTable
+
+                // Lấy thông tin từ JTextField
+                String subTotal = "Subtotal: " + jtxtSubTotal.getText();
+                String tax = "Tax: " + jtxtTax.getText();
+                String total = "Total: " + jtxtTotal.getText();
+                String cash = "Cash: " + jtxtDisplay.getText();
+                String change = "Change: " + jtxtChange.getText();
+
+                // Định dạng font cho thông tin
+                Font textFont = new Font("Serif", Font.PLAIN, 14);
+                g.setFont(textFont);
+
+                // In từng thông tin, căn lề trái
+                String[] infoLines = {subTotal, tax, total, cash, change};
+                for (String line : infoLines) {
+                    g.drawString(line, xMargin, y);
+                    y += 20; // Xuống dòng
+                }
+
+                return PAGE_EXISTS;
+            }
+        });
+
+        // Hiển thị hộp thoại in
+        boolean doPrint = job.printDialog();
+        if (doPrint) {
+            try {
+                job.print();
+            } catch (PrinterException e) {
+                System.err.println("Printing failed: " + e.getMessage());
+            }
         }
     }//GEN-LAST:event_jbtnPrintActionPerformed
 
@@ -1552,7 +1580,6 @@ private JFrame frame;
 //                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION)
 //        {
 //            System.exit(0);
-//        }
     }//GEN-LAST:event_jbtnExitActionPerformed
 
     private void jcboPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcboPaymentActionPerformed
@@ -1574,6 +1601,10 @@ private JFrame frame;
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtDisplayActionPerformed
 
+    private void jtxtTaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtTaxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtTaxActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1591,20 +1622,21 @@ private JFrame frame;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JavaPOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(POS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JavaPOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(POS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JavaPOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(POS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JavaPOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(POS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JavaPOS().setVisible(true);
+                new POS().setVisible(true);
             }
         });
     }

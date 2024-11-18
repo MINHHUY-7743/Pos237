@@ -1,6 +1,9 @@
-import entity.EntityInvoice;
-import entity.EntityInvoiceDetail;
-import dao.InvoiceDAO;
+package com.mycompany.javapos.gui;
+
+import com.mycompany.javapos.gui.POS;
+import com.mycompany.javapos.entity.EntityInvoice;
+import com.mycompany.javapos.entity.EntityInvoiceDetail;
+import com.mycompany.javapos.dao.InvoiceDAO;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
@@ -19,11 +22,6 @@ import javax.swing.event.ListSelectionEvent;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
-/**
- *
- * @author Huy
  */
 public class Invoice extends javax.swing.JFrame {
 
@@ -318,7 +316,7 @@ public class Invoice extends javax.swing.JFrame {
 
     private void jbtnPosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPosActionPerformed
         // Quay lại màn hình bán hàng
-        JavaPOS posSreen = new JavaPOS();
+        POS posSreen = new POS();
         posSreen.setVisible(true);
         this.dispose(); // Đóng cửa sổ hiện tại
     }//GEN-LAST:event_jbtnPosActionPerformed

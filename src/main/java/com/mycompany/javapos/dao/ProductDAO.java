@@ -1,6 +1,6 @@
-package dao;
-import entity.EntityInvoiceDetail;
-import entity.EntityProduct;
+package com.mycompany.javapos.dao;
+import com.mycompany.javapos.entity.EntityInvoiceDetail;
+import com.mycompany.javapos.entity.EntityProduct;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
